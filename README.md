@@ -1,8 +1,8 @@
-# 鹭栖科技
+# 浙江省公共数据•交换平台
 
 ------
 
-本项目主要从0开始构建前端集成开发环境，Follow me ~
+本项目是合作项目 ~
 
 > * npm run client:dev    
 > * npm run client:server    

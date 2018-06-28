@@ -18,7 +18,8 @@ module.exports = {
      */
     css: [
         'element-ui/lib/theme-chalk/index.css',
-        '~/assets/css/common.css'
+        '~/assets/css/common.css',
+        '~/assets/css/iconfont.css'
     ],
     /*
      ** Add element-ui in our app, see plugins/element-ui.js file
@@ -26,6 +27,15 @@ module.exports = {
     plugins: [
         '@/plugins/element-ui'
     ],
+    modules: [
+        // 请求代理配置，解决跨域
+        '@gauseen/nuxt-proxy'
+    ],
+
+    proxyTable: {
+        '/api': { target: 'http://59.202.28.203', ws: false }
+    },
+
     /*
      ** Customize the progress bar color
      */

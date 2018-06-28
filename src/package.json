@@ -18,7 +18,13 @@
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "jquery": "^3.3.1",
+=======
+    "@gauseen/nuxt-proxy": "^1.0.1",
+    "@nuxtjs/axios": "^5.3.1",
+    "@nuxtjs/proxy": "^1.2.4",
+>>>>>>> 9d5ed21cf26fde62b8231d8b5c974c2f211760c5
     "autoprefixer": "^8.6.4",
     "babel-eslint": "^8.2.1",
     "cssnext": "^1.8.4",

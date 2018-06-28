@@ -1,10 +1,8 @@
 <template>
-  <section class="container">
-    <div>
+  <section>
       <Header/>
       <Menu/>
       <Main/>
-    </div>
   </section>
 </template>
 
@@ -14,6 +12,11 @@ import Menu from '~/components/Menu.vue'
 import Main from '~/components/Main.vue'
 
 export default {
+   mounted () {
+   },
+   destroyed () {
+     
+   },
   components: {
     Header,
     Menu,    
@@ -22,6 +25,6 @@ export default {
 }
 </script>
 
-<style>
- 
+<style lang="postcss">
+   
 </style>

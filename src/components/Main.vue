@@ -7,6 +7,10 @@
     </div>
   </main>
 </template>
+<script>
+
+</script>
+
 
 <style lang="postcss">
   .main-container {
@@ -34,5 +38,7 @@
       }
     }
   }
+  
+
 </style>
 

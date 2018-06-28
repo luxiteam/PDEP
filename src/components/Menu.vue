@@ -45,7 +45,6 @@ export default {
   z-index: 800;
   overflow-y: auto;
   bottom: 0;
-  border-right: 1px solid #ddd;
 }
 
 .sidebar-scroll {
@@ -58,11 +57,16 @@ export default {
     line-height: 60px;
     border-bottom: 2px solid #364245;
     & a {
+      display: block;
       color: #fff;
-      padding: 0 50px;
+      padding-left: 50px;
       & i {
         margin-right: 20px;
       }
+    }
+
+    & a.nuxt-link-active{
+      background: #2d3a3f;
     }
   }
 }

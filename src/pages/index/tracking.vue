@@ -15,7 +15,9 @@
     & .b{
         &:hover{
             & .c{
-
+              & .d{
+                  font-size: 15px;
+                }
               }
 
          }

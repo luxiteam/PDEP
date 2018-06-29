@@ -14,7 +14,7 @@
                         </div>
                         <div class="input_outer">
                             <span class="us_uer"></span>
-                            <input name="password" class="text" id='password' style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
+                            <el-input name="password" class="text" id='password' style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码"/>
                         </div>
                         <div class="mb2"><a class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
                     </form>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { Base64 } from "js-base64";
+import { Base64 } from "base-64";
 export default {
   mounted() {
     $(function() {
@@ -43,7 +43,9 @@ export default {
       var user = $("#user").val();
       if ($("#password").val()) {
         var basepassword = Base64.encode($("#password").val(), "base64");
+        console.log(basepassword);
         basepassword = Base64.encode(basepassword, "base64");
+        console.log(basepassword);
       }
 
       $.ajax({
@@ -58,7 +60,8 @@ export default {
         error: function() {},
         success: function(res) {
           if (res.data.has == 1) {
-            window.location.href = "index.html";
+            
+            console.log(this.$router);
           }
         }
       });

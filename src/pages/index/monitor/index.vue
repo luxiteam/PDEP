@@ -158,6 +158,7 @@ export default {
     }
   }
   & .business-block {
+    display: flex;
   }
 }
 </style>

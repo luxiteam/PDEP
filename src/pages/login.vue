@@ -58,7 +58,7 @@
           error: function() {},
           success: function(res) {
             if (res.data.has == 1) {
-              // $scope.$router.push("/");
+              $scope.$router.push("/");
               console.log(res.data);
               $scope.account = res.data.account;
               $scope.username = res.data.username;

@@ -1,5 +1,6 @@
 <template>
   <div class = 'container'>
+
     <el-row class = 'nav-bar'>
       <el-col :span="24">
         <div class="grid-content bg-purple-dark left">
@@ -14,6 +15,7 @@
         </div>
       </el-col>
     </el-row>
+
     <el-row class = 'navigation'>
       <el-col :span = '24'>
         <el-breadcrumb separator="/">
@@ -24,6 +26,7 @@
         </el-breadcrumb>
       </el-col>
     </el-row>
+
     <el-row class = 'business-box'>
       <el-col :span = '24'>
         <ul>
@@ -38,11 +41,149 @@
         </ul>
       </el-col>
     </el-row>
+
+    <el-row class = 'data-exhibition'>
+      <el-col :span = '4'>
+        <el-dropdown class = 'data-type'>
+          <el-button class = 'initial'>
+            当日发送<i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>当日接收</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
+      <el-col :span = '16' class = 'step-container'>
+        <div class = 'step-box'>
+          <p class = 'step-title'>滨江区前置</p>
+          <div class = 'cut-line'></div>
+          <div class = 'server-box'>
+          <img src="../../assets/server-icon.png" alt="">
+          </div>
+          <p>发送量: <a href="javascript:void(0)">180316</a></p>
+        </div>
+        <div class = 'step-box'>
+          <p class = 'step-title'>中心前置</p>
+          <div class = 'cut-line'></div>
+          <div class = 'server-box'>
+            <img src="../../assets/server-icon.png" alt="">
+          </div>
+          <p>接收量: <a href="javascript:void(0)">158422</a></p>
+        </div>
+        <div class = 'step-box'>
+          <p class = 'step-title'>业务获取</p>
+          <div class = 'cut-line'></div>
+          <div class = 'server-box'>
+            <img src="../../assets/server-icon.png" alt="">
+          </div>
+          <p>获取量: <a href="javascript:void(0)">87223</a></p>
+        </div>
+      </el-col>
+      <el-col :span = '4'>
+      </el-col>
+    </el-row>
+
+    <el-row class = 'track-table'>
+      <el-col :span = '12'>
+        <div class="start-date">
+        <span class = 'date-name'>起始日期: </span>
+        <el-date-picker  v-model="value2"
+          type="date"
+          placeholder="请选择起始日期"
+          :picker-options="pickerOptions1">
+        </el-date-picker>
+        </div>
+
+        <div class = 'end-date'>
+          <span class = 'date-name'>结束日期: </span>
+          <el-date-picker  v-model="value1"
+                           type="date"
+                           placeholder="请选择结束日期"
+                           :picker-options="pickerOptions2">
+          </el-date-picker>
+        </div>
+
+        <el-button class = 'initial'>导出表格</el-button>
+      </el-col>
+
+      <el-col :span = '12'></el-col>
+    </el-row>
+
+    <el-row class = 'track-table-content'>
+      <el-col :span = '24'>
+        <el-table class = 'track-table-inner'
+          border
+          style="width: 100%">
+          <el-table-column
+            prop="date"
+            label=发送日期
+            width="180"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="业务"
+            width="180"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="发送量"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="交换量"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="接收量"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="待交换量"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="待接收量"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="交换状态"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="接收状态"
+            align="center">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="详情"
+            align="center">
+          </el-table-column>
+        </el-table>
+        <el-row>
+          <el-col :span = '12' class = 'pagination-message'>
+            <p>总计12条记录</p>
+          </el-col>
+          <el-col :span = '12' class = 'pagination-number'>
+            <el-pagination
+              layout="prev, pager, next"
+              :total="50">
+            </el-pagination>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-  import {toggleClass} from '../../assets/js/domclass.js'
 
   export default {
     data () {
@@ -64,22 +205,68 @@
           {name:'投资返回',value:900},
           {name:'信用返回',value:300},
           {name:'行政处罚',value:800},
-        ]
+        ],
+        tableData:[],
+        pickerOptions1: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+        },
+        pickerOptions2: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+          shortcuts: [{
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          }, {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          }, {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }]
+        },
+        value1: '',
+        value2: '',
       }
     },
     created () {
+
     },
     methods:{
       opendropdowmenu () {
-        let dropmenuDom = document.querySelector('.business-box')
-        if (this.hasClass(dropmenuDom,'active')) {
-          dropmenuDom.classList.add('active')
-        }else {
-          dropmenuDom.classList.remove()
-        }
-      },
-       hasClass (obj, cls) {
-        return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+         $('.business-box').toggleClass('active')
       }
     }
   }
@@ -114,9 +301,13 @@
     position: relative;
     background: #ffffff;
     margin:0 20px;
-    height:80px;
     overflow:hidden;
+    height: 80px;
+    transtion:height .5s;
     & ul{
+      position:absolute;
+      left:0;
+      top:0;
         & li {
             display: inline-block;
             & a{
@@ -131,6 +322,106 @@
               }
           }
       }
+  }
+  .business-box.active{
+    height: 164px;
+    transition: height .5s;
+  }
+  .data-exhibition{
+    position: relative;
+    background: #ffffff;
+    margin: 20px;
+    height:280px;
+    & .data-type{
+        margin:20px 0 0 20px;
+      & .initial{
+          color: #ffffff;
+          background: #5bbfde;
+        }
+      }
+    .step-container{
+      & .step-box{
+          position: relative;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          margin-left: 135px;
+          display: inline-block;
+          height: 245px;
+          width: 185px;
+          text-align: center;
+          box-shadow: 0 0 5px #6ffaff;
+        & .step-title{
+            margin-top: 15px;
+          }
+        & .cut-line{
+              margin:10px auto;
+              width:150px;
+              height: 1px;
+              background: #ececec;
+            }
+          & .server-box{
+              margin: 20px auto;
+              height: 100px;
+              width: 100px;
+              border:10px solid #5bbfde;
+              border-radius:50%;
+              img{
+                margin:21px 0px;
+              }
+            }
+        }
+    }
+  }
+  .track-table{
+    background: #ffffff;
+    margin: 0px 20px;
+    .date-name{
+      color: #656565;
+    }
+    .start-date,.end-date{
+      margin: 10px 20px;
+      display: inline-block;
+    }
+    .initial{
+      color: #ffffff;
+      background: #5bbfde;
+    }
+  }
+  .track-table-content{
+    margin: 0 20px;
+    background:#ffffff;
+      .has-gutter{
+        background: #eeeeee;
+      }
+    .pagination-message{
+      p{
+        padding:20px;
+        color: #838383;
+        margin:auto 0px;
+      }
+    }
+    .pagination-number{
+      padding:20px;
+      text-align: right;
+    }
+  }
+  .el-pager li.active {
+    color: #ffffff;
+    cursor: default;
+    border-radius: 50%;
+    background: #5abfdf;
+  }
+  .el-pager li {
+    min-width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
+  .el-table thead tr th {
+    color: #000;
+    background-color: #eeeeee;
+  }
+  .el-table--border td, .el-table--border th, .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
+    border: 1px solid #d2d2d2;
   }
   .left{
     float: left;

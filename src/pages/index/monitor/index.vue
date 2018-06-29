@@ -35,6 +35,12 @@
 
 <script>
 export default {
+  mounted(){
+      $("#dropbtn").click(function() {
+      $(this).toggleClass("rotate");
+      $("#bar").toggleClass("on");
+    });
+  },
   data() {
     return {
       barList: [

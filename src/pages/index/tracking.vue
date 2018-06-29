@@ -58,7 +58,7 @@
           <p class = 'step-title'>滨江区前置</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
-          <img src="../../assets/server-icon.png" alt="">
+          <img src="~/assets/server-icon.png" alt="">
           </div>
           <p>发送量: <a href="javascript:void(0)">180316</a></p>
         </div>
@@ -66,7 +66,7 @@
           <p class = 'step-title'>中心前置</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
-            <img src="../../assets/server-icon.png" alt="">
+            <img src="~/assets/server-icon.png" alt="">
           </div>
           <p>接收量: <a href="javascript:void(0)">158422</a></p>
         </div>
@@ -74,7 +74,7 @@
           <p class = 'step-title'>业务获取</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
-            <img src="../../assets/server-icon.png" alt="">
+            <img src="~/assets/server-icon.png" alt="">
           </div>
           <p>获取量: <a href="javascript:void(0)">87223</a></p>
         </div>
@@ -263,6 +263,9 @@
     },
     created () {
 
+    },
+    mounted(){
+   
     },
     methods:{
       opendropdowmenu () {

@@ -4,12 +4,11 @@
 
 <script>
 export default {
- 
+ mounted() {
+ }
 };
 </script>
 
 <style>
-.welcome-bg{
-    display: none;
-}
+ 
 </style>

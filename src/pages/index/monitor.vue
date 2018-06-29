@@ -12,10 +12,7 @@
 <script>
 export default {
   mounted() {
-    $("#dropbtn").click(function() {
-      $(this).toggleClass("rotate");
-      $("#bar").toggleClass("on");
-    });
+   
   },
   data() {
     return {
@@ -45,9 +42,6 @@ export default {
 </script>
 
 <style lang="postcss">
-.welcome-bg {
-  display: none;
-}
 .module-block {
   padding-left: 20px;;
   display: flex;

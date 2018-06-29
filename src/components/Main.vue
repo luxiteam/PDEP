@@ -3,12 +3,15 @@
     <div class="sdp-container-scroll">
       <div class="content-container height100">
         <nuxt-child/>
+        <img class="welcome-bg" src="~/assets/welcome.png" alt="welcome">
       </div>
     </div>
   </main>
 </template>
 <script>
-
+export default {
+}
+ 
 </script>
 
 

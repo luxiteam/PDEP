@@ -171,11 +171,14 @@
           <el-col :span = '12' class = 'pagination-message'>
             <p>总计12条记录</p>
           </el-col>
-          <el-col :span = '12' class = 'pagination-number'>
+          <el-col :span = '10' class = 'pagination-number'>
             <el-pagination
               layout="prev, pager, next"
               :total="50">
             </el-pagination>
+          </el-col>
+          <el-col :span = '2' class = 'totalpageNumber'>
+            <span>共2页</span>
           </el-col>
         </el-row>
       </el-col>
@@ -406,6 +409,10 @@
     .pagination-number{
       padding:20px;
       text-align: right;
+    }
+    .totalpageNumber{
+      padding:20px;
+      color: #adadad;
     }
   }
   .el-pager li.active {

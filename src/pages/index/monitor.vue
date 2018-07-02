@@ -2,7 +2,7 @@
     <div>
         <ul class="module-block">
           <li v-for="item in moduleList" :key="item.key">
-              <router-link :to="item.path" class="sublink" data="sublink" >{{item.name}}</router-link>
+              <nuxt-link :to="item.path">{{item.name}}</nuxt-link>
           </li>
         </ul>
         <nuxt-child/>
@@ -53,7 +53,7 @@ export default {
       height: 40px;
       line-height:40px;
       background: #f5f5f5;
-      margin: 10px 15px;
+      margin: 15px;
       text-align: center;
       border-radius: 4px;
       &:hover {
@@ -66,6 +66,10 @@ export default {
       color: #fff;
     }
   }
+}
+.container-monitor {
+  padding: 10px 20px;
+  
 }
  
 </style>

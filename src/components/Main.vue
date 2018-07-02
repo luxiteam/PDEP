@@ -2,26 +2,25 @@
   <main class="main-container">
     <div class="sdp-container-scroll">
       <div class="content-container height100">
-          <img v-if="routerPath=='/'"  class= "welcome-bg" src="~/assets/welcome.png" />
+        <img v-if="routerPath=='/'" class="welcome-bg" src="~/assets/welcome.png" />
         <nuxt-child/>
       </div>
     </div>
   </main>
 </template>
-<script>
 
-export default {
-  mounted () {
-  let path = this.$router.history.current.fullPath;
-  this.routerPath =path;
-},
-   data() {
-     return {
-       routerPath:"",
-     }
-   }
-}
- 
+<script>
+  export default {
+    mounted() {
+      let path = this.$router.history.current.fullPath;
+      this.routerPath = path;
+    },
+    data() {
+      return {
+        routerPath: "",
+      }
+    }
+  }
 </script>
 
 
@@ -47,11 +46,10 @@ export default {
       & .content-container {
         position: relative;
         padding: 0;
-        min-width: 763px;
+        min-width: 1200px;
+        background: #f5f5f5;
       }
     }
   }
-  
-
 </style>
 

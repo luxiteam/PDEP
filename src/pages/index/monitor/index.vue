@@ -1,48 +1,32 @@
 <template>
-    <div class="container-monitor">
-        <p class="local">您当前位于：交换监控/监控统计</p>
-        <div id="bar" class="select-block">
-            <ul class="bar-ul">
-                <li v-for="item in barList" :key="item.id">
-                    <a href="">{{item.name}}</a>
-                </li>
-            </ul>
-            <i id="dropbtn" class="icon el-icon-arrow-down"></i>
-        </div>
-        <div class="business-block">
-            <ul>
-                <li v-for="item in businessList" :key="item.id">
-                    <div>{{item.leftval}}</div>
-                    <div>
-                        <dl>
-                            <dt> <i :class="item.iclass"></i></dt>
-                            <dd>
-                                <em></em>
-                                <p></p>
-                            </dd>
-                            <dd>
-                                <em></em>
-                                <p></p>
-                            </dd>
-                        </dl>
-                    </div>
-                </li>
-            </ul>
-    
-        </div>
-    </div>
+  <div class="container-monitor">
+    <bread-crumb :bread-list="breadList"></bread-crumb>
+    <item-bar :bar-list="barList"></item-bar>
+    <data-block :data-list="dataList"></data-block>
+    <tab-block :tab-list="tabList"></tab-block>
+  </div>
 </template>
 
 <script>
+import BreadCrumb from "~/components/monitor/BreadCrumb.vue";
+import ItemBar from "~/components/monitor/ItemBar.vue";
+import DataBlock from "~/components/monitor/DataBlock.vue";
+import TabBlock from "~/components/monitor/TabBlock.vue";
 export default {
-  mounted(){
-      $("#dropbtn").click(function() {
-      $(this).toggleClass("rotate");
-      $("#bar").toggleClass("on");
-    });
+  mounted() {},
+  components: {
+    BreadCrumb,
+    ItemBar,
+    DataBlock,
+    TabBlock
+
   },
   data() {
     return {
+      breadList:[
+        "交换监控",
+        "区县详情"
+      ],
       barList: [
         {
           name: "区本级"
@@ -105,9 +89,44 @@ export default {
           name: "区民政局"
         }
       ],
-      businessList: [
+      dataList: [
         {
-          leftval: ""
+          leftval: "接入规模",
+          num1: "74",
+          num2: "11",
+          text1: "接入部门",
+          text2: "接入业务",
+          iclass: "iconfont icon-icon"
+        },
+        {
+          leftval: "交换总量",
+          num1: "74",
+          num2: "11",
+          text1: "总接收量",
+          text2: "总发送量",
+          iclass: "iconfont icon-jiaohuan1"
+        },
+        {
+          leftval: "当日交换量",
+          num1: "74",
+          num2: "11",
+          text1: "总接收量",
+          text2: "总发送量",
+          iclass: "iconfont icon-duidiaojiaohuanduihuan"
+        }
+      ],
+      tabList: [
+        {
+          name: "交换日分布统计"
+        },
+        {
+          name: "部门交换量排名"
+        },
+        {
+          name: "业务交换量排名"
+        },
+        {
+          name: "异常监控"
         }
       ]
     };
@@ -116,50 +135,5 @@ export default {
 </script>
 
 <style lang="postcss">
-.container-monitor {
-  background: #f5f5f5;
-  padding: 10px 20px;
-  & .local {
-    color: #555;
-    font-size: 14px;
-  }
-  & .select-block.on {
-    height: auto;
-  }
-  & .select-block {
-    height: 60px;
-    box-sizing: border-box;
-    background: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    border-radius: 2px;
-    padding: 0 10px;
-    overflow: hidden;
-    & .bar-ul {
-      display: flex;
-      flex-flow: wrap;
 
-      & li {
-        margin: 20px;
-      }
-    }
-    & .icon {
-      height: 60px;
-      margin-right: 20px;
-      line-height: 60px;
-      font-size: 24px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    & .icon.rotate {
-      transform: rotate(180deg);
-    }
-  }
-  & .business-block {
-    display: flex;
-    
-  }
-}
 </style>

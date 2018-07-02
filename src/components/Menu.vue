@@ -4,13 +4,14 @@
       <ul class="nav-main">
         <template v-for="menu in menus">
             <li v-for="item in menu.items" :key="item.key">
-              <router-link :to="item.path" class="nav-submenu" data="nav-submenu">
+              <nuxt-link :to="item.path" class="nav-submenu" data="nav-submenu">
                 <i :class="item.class"></i>
                 <span class="sidebar-mini-hide">{{ item.name }}</span>
-              </router-link>
+              </nuxt-link>
             </li>
          </template>
       </ul>
+
         <dl class="nav-bottom">
             <dt><i class="iconfont icon-kefu"></i>温馨提示</dt>
             <dd>运维QQ：{{qq}}</dd>
@@ -24,6 +25,7 @@
 import menuConfig from "../config/menu";
 
 export default {
+ 
   data() {
     return {
       menus: menuConfig,

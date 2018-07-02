@@ -23,7 +23,9 @@ module.exports = {
             href: '/favicon.ico'
         }],
         script: [
-            { src: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js' }
+            { src: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js' },
+            { src: 'https://cdn.bootcss.com/echarts/3.8.5/echarts.js' },
+
         ],
     },
     /*
@@ -38,7 +40,7 @@ module.exports = {
      ** Add element-ui in our app, see plugins/element-ui.js file
      */
     plugins: [
-        '@/plugins/element-ui'
+        '@/plugins/element-ui',
     ],
     /*
      ** Customize the progress bar color

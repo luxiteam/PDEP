@@ -3,24 +3,29 @@
     <div>
       <img src="~/assets/page-logo.png" alt="logo">
       <span class="title">{{title}}</span><span class="title-point">•</span><span class="title-sub">{{ title_sub }}</span>
+    
     </div>
     <div>
-      欢迎您！<span>{{ account}}</span> <i class="iconfont icon-guanbi login-out"></i>
+      欢迎您！<span>{{username}}</span> <i class="iconfont icon-guanbi login-out"></i>
     </div>
-  
+
   </header>
 </template>
 
 <script>
 export default {
   mounted() {
-
-  },
+    this.$store.dispatch('checkUser', {}).then(res=>{
+        console.log(res.data)
+        this.username = res.data.username;
+    });
+     
+   },
   data() {
     return {
       title: "公共数据",
       title_sub: "交换",
-      account: "11"
+      username: "11"
     };
   }
 };

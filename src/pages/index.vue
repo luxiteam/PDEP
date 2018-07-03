@@ -14,7 +14,11 @@ import Main from "~/components/Main.vue";
 export default {
   mounted() {},
   data() {
+<<<<<<< HEAD
     return {};
+=======
+    return {};git
+>>>>>>> 35744580cdfa9e979ac9866c91b3ac61537fde45
   },
   methods: {},
   components: {

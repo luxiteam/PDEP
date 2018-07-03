@@ -46,8 +46,9 @@
       & .content-container {
         position: relative;
         padding: 0;
-        min-width: 1200px;
+        min-width: 1280px;
         background: #f5f5f5;
+        overflow: auto;
       }
     }
   }

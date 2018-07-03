@@ -1,8 +1,8 @@
 <template>
-    <div id="bar" class="select-block">
+    <div id="bar" class="select-block" v-show="barList.length">
         <ul class="bar-ul">
-            <li v-for="item in barList" :key="item.id">
-                <nuxt-link to="">{{item.name}}</nuxt-link>
+            <li v-for="(item,index) in barList" :key="index">
+                <nuxt-link to="">{{item.deptDesc}}</nuxt-link>
             </li>
         </ul>
         <i id="dropbtn" class="icon el-icon-arrow-down"></i>
@@ -16,12 +16,17 @@ export default {
       $(this).toggleClass("rotate");
       $("#bar").toggleClass("on");
     });
+     this.$store.dispatch("deptMenu").then(res => {
+      this.barList=res.data;
+    });
+ 
   },
   data() {
     return {
+      barList:[]
     };
   },
-  props: ["barList"]
+  
 };
 </script>
 
@@ -45,7 +50,10 @@ export default {
     display: flex;
     flex-flow: wrap;
     & li {
-      margin: 20px;
+      margin: 20px 50px 20px 30px;
+      & a.nuxt-link-exact-active{
+
+      }
     }
   }
   & .icon {

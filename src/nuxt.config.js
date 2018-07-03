@@ -18,14 +18,16 @@ module.exports = {
             }
         ],
         link: [{
-            rel: 'icon',
-            type: 'image/x-icon',
-            href: '/favicon.ico'
-        }],
+                rel: 'icon',
+                type: 'image/x-icon',
+                href: '/favicon.ico'
+            },
+            { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_723532_qwwghdu112.css' }
+        ],
+
         script: [
             { src: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js' },
             { src: 'https://cdn.bootcss.com/echarts/3.8.5/echarts.js' },
-
         ],
     },
     /*
@@ -33,8 +35,7 @@ module.exports = {
      */
     css: [
         'element-ui/lib/theme-chalk/index.css',
-        '~/assets/css/common.css',
-        '~/assets/css/iconfont.css'
+        '~/assets/css/common.css'
     ],
     /*
      ** Add element-ui in our app, see plugins/element-ui.js file

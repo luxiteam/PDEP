@@ -6,7 +6,7 @@
     
     </div>
     <div>
-      欢迎您！<span>{{username}}</span> <i class="iconfont icon-guanbi login-out"></i>
+      欢迎您！<span>{{username}}</span> <i class="iconfont icon-guanbi login-out" @click="logout"></i>
     </div>
 
   </header>
@@ -15,18 +15,24 @@
 <script>
 export default {
   mounted() {
-    this.$store.dispatch('checkUser', {}).then(res=>{
-        console.log(res.data)
-        this.username = res.data.username;
-    });
-     
-   },
+    
+  },
+  props: ["username"],
   data() {
     return {
       title: "公共数据",
-      title_sub: "交换",
-      username: "11"
+      title_sub: "交换"
     };
+  },
+  methods: {
+    logout(){
+      this.$store.dispatch("logout",{}).then(res=>{
+        console.log(res);
+        if(res.status == 0){
+          this.$router.push("/login");
+        }
+      })
+    }
   }
 };
 </script>

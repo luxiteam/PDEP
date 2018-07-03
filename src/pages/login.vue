@@ -5,11 +5,11 @@
       <form action="#" name="f" method="post" id='form' autocomplete="off">
         <div class="input_outer">
           <span class="u_user"></span>
-          <input autocomplete="off" v-model="username" name="account" class="text" id='user' style="color: #FFFFFF !important" type="text" placeholder="请输入账户" />
+          <input autocomplete="off"  name="account" class="text" id='user' style="color: #FFFFFF !important" type="text" placeholder="请输入账户" />
         </div>
         <div class="input_outer">
           <span class="us_uer"></span>
-          <input autocomplete="new-password" v-model="password" name="password" class="text" id='password' style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码" />
+          <input autocomplete="new-password"  name="password" class="text" id='password' style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码" />
         </div>
         <div class="mb2"><a class="act-but submit" href="javascript:;"   style="color: #FFFFFF">登录</a></div>
       </form>
@@ -19,9 +19,6 @@
 
 <script>
 import Base64 from "base-64";
-
- 
-
 export default {
   mounted() {
     let $scope = this;
@@ -35,20 +32,15 @@ export default {
         }
       });
     });
-
     function sub() {
       var user = $("#user").val();
       if ($("#password").val()) {
         var basepassword = Base64.encode($("#password").val(), "base64");
         basepassword = Base64.encode(basepassword, "base64");
       }
-
       $.ajax({
-        url:
-          "http://59.202.28.203/PDE/login?account=" +
-          user +
-          "&password=" +
-          basepassword,
+        url: "http://59.202.28.203/PDE/login",
+        data: { account: user, password: basepassword },
         type: "get",
         crossDomain: true,
         xhrFields: {
@@ -62,17 +54,6 @@ export default {
           }
         }
       });
-    }
-  },
-  data() {
-    return {
-      username:"",
-      password:""
-    }
-  },
-  methods: {
-    send(){
-       
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul class="module-block">
-          <li v-for="item in moduleList" :key="item.key">
+          <li v-for="(item,index) in moduleList" :key="index" :id="item.module" v-show="false">
               <nuxt-link :to="item.path">{{item.name}}</nuxt-link>
           </li>
         </ul>
@@ -10,32 +10,41 @@
 </template>
 
 <script>
+
 export default {
   mounted() {
-   
+    this.$store
+      .dispatch("displayPermissions", {
+        parentModule: "jhjk"
+      })
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          let id = res.data[i].moduleNo;
+          $(`#${id}`).show();
+        }
+      });
+  
   },
+  
   data() {
     return {
       moduleList: [
         {
-          key: "1",
+          module: "jktj",
           name: "监控统计",
           path: "/monitor"
         },
         {
-          key: "2",
+          module: "ywyjk",
           name: "业务域监控",
           path: "/monitor/business"
         },
         {
-          key: "3",
+          module: "qxxq",
           name: "区县详情",
           path: "/monitor/detail"
         }
-      ],
-
-      tabPosition: "top",
-     
+      ]
     };
   }
 };
@@ -43,7 +52,7 @@ export default {
 
 <style lang="postcss">
 .module-block {
-  padding-left: 20px;;
+  padding-left: 20px;
   display: flex;
   background: #fff;
   & li {
@@ -51,7 +60,7 @@ export default {
       display: block;
       width: 110px;
       height: 40px;
-      line-height:40px;
+      line-height: 40px;
       background: #f5f5f5;
       margin: 15px;
       text-align: center;
@@ -69,7 +78,5 @@ export default {
 }
 .container-monitor {
   padding: 10px 20px;
-  
 }
- 
 </style>

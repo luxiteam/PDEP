@@ -1,8 +1,8 @@
 <template>
     <div>
         <ul class="module-block">
-          <li v-for="(item,index) in moduleList" :key="index" :id="item.module" v-show="false">
-              <nuxt-link :to="item.path">{{item.name}}</nuxt-link>
+          <li v-for="(item,index) in moduleList" :key="index"  :id="item.module" v-show="false">
+              <nuxt-link :to="item.path" exact>{{item.name}}</nuxt-link>
           </li>
         </ul>
         <nuxt-child/>
@@ -10,9 +10,10 @@
 </template>
 
 <script>
-
 export default {
   mounted() {
+    (this.moduleList)[2].path = "/monitor/detail/:" + localStorage.parentNo;
+    (this.moduleList)[3].path = (this.moduleList)[2].path;
     this.$store
       .dispatch("displayPermissions", {
         parentModule: "jhjk"
@@ -20,14 +21,14 @@ export default {
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           let id = res.data[i].moduleNo;
-          $(`#${id}`).show();
+          document.querySelector(`#${id}`).style.display = "block";
         }
       });
-  
   },
-  
+
   data() {
     return {
+      id: "1",
       moduleList: [
         {
           module: "jktj",
@@ -42,7 +43,12 @@ export default {
         {
           module: "qxxq",
           name: "区县详情",
-          path: "/monitor/detail"
+          path: "/monitor/detail/:"
+        },
+        {
+          module: "bmxq",
+          name: "部门详情",
+          path: "/monitor/detail/:"
         }
       ]
     };

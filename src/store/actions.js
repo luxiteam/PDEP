@@ -1,6 +1,7 @@
 import request from '~/service'
 const api = "http://59.202.28.203"
 
+/*监控统计*/
 //登陆
 export const login = (store, params) => {
     return request.get(`${api}/PDE/login`, params)
@@ -26,7 +27,30 @@ export const deptMenu = (store, params) => {
     return request.get(`${api}/PDE/monitor/monitorsta/deptMenu`, params)
 }
 
-//三级部门菜单
-export const header = (store, params) => {
+//接入规模、交换总量、当日交换量
+export const monitorHeader = (store, params) => {
     return request.get(`${api}/PDE/monitor/monitorsta/header`, params)
+}
+
+/*业务域监控*/
+//三级业务菜单
+export const bscodeMenu = (store, params) => {
+    return request.get(`${api}/PDE/monitor/bscodemonitor/bscodeMenu`, params)
+}
+
+//接入规模、交换总量、当日交换量
+export const businessHeader = (store, params) => {
+    return request.get(`${api}/PDE/monitor/bscodemonitor/header`, params)
+}
+
+
+/*部门/区划详情*/
+//发送监控
+export const monitorStatus = (store, params) => {
+    return request.get(`${api}/PDE/monitor/detail/status`, params)
+}
+
+//发送监控
+export const sendMonitor = (store, params) => {
+    return request.get(`${api}/PDE/monitor/detail/send`, params)
 }

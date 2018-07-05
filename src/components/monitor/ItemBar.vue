@@ -1,40 +1,72 @@
 <template>
-    <div id="bar" class="select-block" v-show="barList.length">
-        <ul class="bar-ul">
-            <li v-for="(item,index) in barList" :key="index">
-                <nuxt-link to="">{{item.deptDesc}}</nuxt-link>
-            </li>
-        </ul>
-        <i id="dropbtn" class="icon el-icon-arrow-down"></i>
-    </div>
+  <div :class="isState==false?'select-block':'select-block on'" v-if="roleId==5||roleId==7"   v-show="barList.length>0||routerPath =='/monitor'">
+    <ul class="bar-ul" v-if="barList&&barList.length>0">
+      <li  v-for="(item,index) in barList" :ref="index" :id="item.bscode||item.deptNo" :key="index" :class="itemIndex == index ? 'active' : ''" @click="selectItem(index)">
+        <span> {{item.deptDesc||item.bsname}} </span>
+      </li>
+    </ul>
+    <ul class="bar-ul"  v-else>
+      <li  class="active" @click="selectOne">
+        <span> {{bsname}} </span>
+      </li>
+    </ul>
+    <i  v-show="barList&&barList.length>8" @click="toggle" :class="isState==false?'icon el-icon-arrow-down':'icon el-icon-arrow-down rotate'"></i>
+  </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    $("#dropbtn").click(function() {
-      $(this).toggleClass("rotate");
-      $("#bar").toggleClass("on");
-    });
-     this.$store.dispatch("deptMenu").then(res => {
-      this.barList=res.data;
-    });
- 
+    let path = this.$router.history.current.fullPath;
+    this.routerPath = path;
+    this.roleId = localStorage.roleId;
+    console.log(this.roleId);
+    if (this.roleId == 5) {
+      this.bsname = "市本级";
+    } else if (this.roleId == 7) {
+      this.bsname = "区本级";
+    }
   },
+  props: ["barList", "getData", "goDetail"],
   data() {
     return {
-      barList:[]
+      routerPath: "",
+      itemIndex: 0,
+      isState: false,
+      bsname: "",
+      roleId:""
     };
   },
-  
+  methods: {
+    selectItem(index) {
+      this.itemIndex = index;
+      let path = this.$router.history.current.fullPath;
+      let code;
+      if (path == "/monitor/business") {
+        code = this.$refs[index][0].getAttribute("id");
+        this.getData(code);
+      }else if(path == "/monitor"){
+        code = this.$refs[index][0].getAttribute("id");
+        this.goDetail(code);
+      }
+    },
+    selectOne(){
+        let code = localStorage.parentNo;
+        this.goDetail(code);
+    },
+    toggle: function() {
+      this.isState = !this.isState;
+    },
+    
+  }
 };
 </script>
 
 <style lang="postcss">
-
 .select-block.on {
   height: auto;
 }
+
 .select-block {
   height: 60px;
   box-sizing: border-box;
@@ -51,8 +83,18 @@ export default {
     flex-flow: wrap;
     & li {
       margin: 20px 50px 20px 30px;
-      & a.nuxt-link-exact-active{
-
+      &:hover {
+        color: #5bbfde;
+      }
+      & span {
+        cursor: pointer;
+      }
+    }
+    & li.active {
+      & span {
+        color: #5bbfde;
+        border-bottom: 3px solid #5bbfde;
+        padding-bottom: 5px;
       }
     }
   }

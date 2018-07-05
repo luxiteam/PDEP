@@ -11,21 +11,25 @@ import Header from "~/components/Header.vue";
 import Menu from "~/components/Menu.vue";
 import Main from "~/components/Main.vue";
 export default {
-  mounted() {
-    this.$store.dispatch("checkUser", {}).then(res => {
-      this.username = res.data.username;
+ 
+  mounted () {
+     this.$store.dispatch("checkUser", {}).then(res => {
+      if(res.status ==0){
+        this.username = res.data.username;
+        localStorage.parentNo=res.data.parentNo;
+        localStorage.roleId=res.data.roleId;
+      }
     });
-    this.$store
+       this.$store
       .dispatch("displayPermissions", {
         parentModule: "leftmenu"
       })
       .then(res => {
         for (let i = 0; i < res.data.length; i++) {
           let id = res.data[i].moduleNo;
-          $(`#${id}`).show();
+          document.querySelector(`#${id}`).style.display="block";
         }
       });
-      
   },
   data() {
     return {

@@ -5,7 +5,7 @@ export default {
         console.log('post request url', url)
         return $.ajax({
             url: url,
-            params: data,
+            data: data,
             type: 'post',
             crossDomain: true,
             xhrFields: {
@@ -17,7 +17,7 @@ export default {
         console.log('get request url', url)
         return $.ajax({
             url: url,
-            params: data,
+            data: data,
             type: 'get',
             crossDomain: true,
             xhrFields: {

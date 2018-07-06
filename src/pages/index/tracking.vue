@@ -3,8 +3,8 @@
     <el-row class = 'nav-bar'>
       <el-col :span="24">
         <div class="grid-content bg-purple-dark left">
-          <el-button class = "report-btn nav-btn" v-bind:class = "{active: reportisActive}" @click = 'cutMenuType(1)'>追踪报告</el-button>
-          <el-button class = "trace-btn nav-btn"  v-bind:class = "{active: traceisActive}"  @click = 'cutMenuType(2)'>实时追踪</el-button>
+          <el-button class = "report-btn nav-btn" v-bind:class = "{active: reportisActive}" @click = 'callMenuType(1)'>追踪报告</el-button>
+          <el-button class = "trace-btn nav-btn"  v-bind:class = "{active: traceisActive}"  @click = 'callMenuType(2)'>实时追踪</el-button>
         </div>
         <div class="grid-content bg-purple-dark right">
           <el-button-group class = 'nav-btn-list'>
@@ -14,16 +14,18 @@
         </div>
       </el-col>
     </el-row>
-    <tracking-report ref = 'cl'></tracking-report>
+    <component :is = 'componentName' ref = 'cl'></component>
   </div>
 </template>
 
 <script>
-import trackingReport from '~/components/tracking/Report'
+import Report from '~/components/tracking/Report'
+import Realtime from '~/components/tracking/Realtime'
 
 export default {
   data () {
     return{
+      componentName:'Report',
       traceisActive: false, //实时追踪属性class
       reportisActive: true, //追踪报告属性class
       dayisActive: true, //日报属性class
@@ -31,7 +33,8 @@ export default {
     }
   },
   components:{
-    trackingReport
+    Report,
+    Realtime
   },
   methods: {
     call (val) {
@@ -43,6 +46,18 @@ export default {
         this.dayisActive = false
       }
       this.$refs.cl.cutreporType(val)
+    },
+    callMenuType (val) {
+      if(val == '1'){
+        this.traceisActive = false
+        this.reportisActive = true
+        this.componentName = 'Report'
+      }else{
+        this.reportisActive = false
+        this.traceisActive = true
+        this.componentName = 'Realtime'
+      }
+      this.$refs.cl.cutMenuType(val)
     }
   }
 }

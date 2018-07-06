@@ -458,12 +458,8 @@ export default {
     },
     cutMenuType (typeID) {
       if (typeID == 1) {
-        this.traceisActive = false
-        this.reportisActive = true
         this.updatePath('追踪报告',2)
       }else if (typeID == 2) {
-        this.reportisActive = false
-        this.traceisActive = true
         this.updatePath('实时追踪',2)
       }
     },    //切换二级菜单
@@ -494,7 +490,7 @@ export default {
         }else {
           this.resetName("省中心前置", "部门/地方前置", "部门/地方业务系统")
           this.gettodayExNumTar()
-          
+
         }
 
       }else if (typeid == '4' || typeid == '5') {
@@ -529,7 +525,7 @@ export default {
   }
 }
 </script>
-<style lang="postcss">
+<style lang="postcss" scoped>
   .shadow-box {
     position: absolute;
     left: 0;

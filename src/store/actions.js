@@ -88,7 +88,11 @@ export const todayExNumSrc = (store, params) => {
     return request.get(`${api}/PDE/track/report/todayExNumSrc`, params)
 }
 
-
-export const exportTable = (store, params) => {
-    return request.get(`${api}/PDE/track/report/exportTable`, params)
+export const timebscodeMenu = (store, params) => {
+  return request.get(`${api}/PDE/track/currentTime/bscodeMenu`, params)
 }
+
+export const timedeptAd = (store, params) => {
+  return request.get(`${api}/PDE/track/currentTime/deptAd`, params)
+}
+

@@ -8,35 +8,45 @@
           <li>
             <span class="w">网络状态：</span>
             <span v-if="statusList.net">
-                 <em v-if="statusList.net.statu==0">正常</em>
-                 <em v-if="statusList.net.statu!=0" class="red">断开</em>
-                 <em v-if="statusList.net==null" class="blue">未知</em>
-              </span>
+                     <em v-if="statusList.net.statu==0">正常</em>
+                     <em v-if="statusList.net.statu!=0" class="red">断开</em>
+                     <em v-if="statusList.net==null" class="blue">未知</em>
+                  </span>
           </li>
           <li>
             <span class="w">节点状态：</span>
             <span v-if="statusList.node">
-                 <em v-if="statusList.net.statu==0">正常</em>
-                 <em v-if="statusList.net.statu!=0" class="red">断开</em>
-                 <em v-if="statusList.net==null" class="blue">未知</em>
-              </span>
+                     <em v-if="statusList.net.statu==0">正常</em>
+                     <em v-if="statusList.net.statu!=0" class="red">断开</em>
+                     <em v-if="statusList.net==null" class="blue">未知</em>
+                  </span>
           </li>
           <li>
             <span class="w">数据源：</span>
             <span v-if="statusList.datasouce">
-                 <em v-if="statusList.net.statu==0">正常</em>
-                 <em v-if="statusList.net.statu!=0" class="red">断开</em>
-                 <em v-if="statusList.net==null" class="blue">未知</em>
-              </span>
+                     <em v-if="statusList.net.statu==0">正常</em>
+                     <em v-if="statusList.net.statu!=0" class="red">断开</em>
+                     <em v-if="statusList.net==null" class="blue">未知</em>
+                  </span>
           </li>
   
         </ul>
       </div>
       <div class="right">
-        <span class="title">前置机监控（）</span>
-        <el-progress type="circle" :percentage="30" color="#5cb85c"></el-progress>
-        <el-progress type="circle" :percentage="50" color="#f0ad4e"></el-progress>
-        <el-progress type="circle" :percentage="70" color="#d9544f"></el-progress>
+        <span class="title">前置机监控 ({{detailList.serverIP}})</span>
+        <div class="circle-item">
+          <el-progress type="circle" :width="100" :percentage="detailList.rate_disk" color="#5cb85c"></el-progress>
+          <p class="text"> 硬盘大小 </p>
+        </div>
+        <div class="circle-item">
+          <el-progress type="circle" :width="100" :percentage="detailList.rate_memory" color="#f0ad4e"></el-progress>
+          <p class="text"> 内存 </p>
+        </div>
+        <div class="circle-item">
+          <el-progress type="circle" :width="100" :percentage="detailList.rate_cpu" color="#d9544f"></el-progress>
+          <p class="text"> CPU </p>
+  
+        </div>
       </div>
     </div>
     <div class="tabs">
@@ -80,190 +90,170 @@
 </template>
 
 <script>
-  import BreadCrumb from "~/components/monitor/BreadCrumb.vue";
-  import ItemBar from "~/components/monitor/ItemBar.vue";
-  import Page from "~/components/public/Page.vue";
-  
-  export default {
-    mounted() {
-      let me = this;
-      this.monitorObj = localStorage.parentName + " - " + localStorage.monitorObj;
-      let router = this.$router.history.current.fullPath;
-      let code = router.split(":")[1];
-      this.$store
-        .dispatch("monitorStatus", {
-          code: code
-        })
-        .then(res => {
-          me.statusList = res.data;
-          console.log(me.statusList);
-        });
-      this.$store
-        .dispatch("monitorDetail", {
-          code: code
-        })
-        .then(res => {
-          console.log(res.data);
-        });
-      this.$store
-        .dispatch("sendMonitor", {
-          code: code
-        })
-        .then(res => {
-          this.tableData = res.data;
-        });
-      this.$store
-        .dispatch("reciveMonitor", {
-          code: code
-        })
-        .then(res => {
-          this.tableData1 = res.data;
-        });
-    },
-    components: {
-      BreadCrumb,
-      ItemBar,
-      Page
-    },
-    methods: {},
-    data() {
-      return {
-        monitorObj: "",
-        status: "",
-        statusList: [],
-        tableData: [],
-        tableData1: []
-      };
-    }
-  };
+import BreadCrumb from "~/components/monitor/BreadCrumb.vue";
+import ItemBar from "~/components/monitor/ItemBar.vue";
+import Page from "~/components/public/Page.vue";
+
+export default {
+  mounted() {
+    let me = this;
+    this.monitorObj = localStorage.parentName + " - " + localStorage.monitorObj;
+    let router = this.$router.history.current.fullPath;
+    let code = router.split(":")[1];
+    this.$store
+      .dispatch("monitorStatus", {
+        code: code
+      })
+      .then(res => {
+        me.statusList = res.data;
+        console.log(me.statusList);
+      });
+    this.$store
+      .dispatch("monitorDetail", {
+        code: code
+      })
+      .then(res => {
+        console.log(res.data);
+        this.detailList = res.data;
+      });
+    this.$store
+      .dispatch("sendMonitor", {
+        code: code
+      })
+      .then(res => {
+        this.tableData = res.data;
+      });
+    this.$store
+      .dispatch("reciveMonitor", {
+        code: code
+      })
+      .then(res => {
+        this.tableData1 = res.data;
+      });
+  },
+  components: {
+    BreadCrumb,
+    ItemBar,
+    Page
+  },
+  methods: {},
+  data() {
+    return {
+      monitorObj: "",
+      status: "",
+      statusList: [],
+      detailList: [],
+      tableData: [],
+      tableData1: []
+    };
+  }
+};
 </script>
 
 <style lang="postcss">
-  .monitoring-state {
-    display: flex;
-    margin-bottom: 20px;
-    & .left {
-      flex: 2;
-      background: #fff;
-      border-radius: 4px;
-      margin-right: 25px;
-      & ul {
-        padding: 15px 30px 10px 80px;
-        & li {
-          line-height: 26px;
-          & .w {
-            display: inline-block;
-            width: 80px;
-          }
-          & em {
-            font-style: normal;
-          }
-          & em.red {
-            color: #de6b66;
-          }
-          & em.blue {
-            color: #5bbfde;
-          }
-        }
-      }
-    }
-    & .right {
-      flex: 5;
-      background: #fff;
-      border-radius: 4px;
-      & .title {
-        font-size: 18px;
-        display: inline-block;
-        height: 26px;
-        margin: 20px;
-        border-left: 3px solid #5bbfde;
-        padding: 0 10px;
-        vertical-align: top;
-      }
-      & .el-progress--circle{
-        margin:15px 30px;
-      }
-    }
-  }
-  
-  .tabs {
-    & .el-tabs--border-card {
-      background: none;
-      border: none;
-      box-shadow: none;
-      &>.el-tabs__header {
-        background: none;
-        border-bottom: 0;
-      }
-      &>.el-tabs__content {
-        background: #fff;
-        min-height: 450px;
-        padding: 30px 20px;
-      }
-      &>.el-tabs__header .el-tabs__item.is-active {
-        border: 0;
-        color: #222;
-        &:before {
-          background: #40cbcc;
-        }
-      }
-      & .el-tabs__item {
-        border: 0;
-        transition: inherit;
-        width: 200px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        font-size: 16px;
-        padding: 0 30px;
-        height: 60px;
-        line-height: 60px;
-        margin-right: 10px !important;
-        background: #e1e1e1;
-        color: #555;
-        font-weight: 700;
-        &:before {
-          content: "";
+.monitoring-state {
+  display: flex;
+  margin-bottom: 20px;
+  & .left {
+    flex: 2;
+    background: #fff;
+    border-radius: 4px;
+    margin-right: 25px;
+    & ul {
+      padding: 15px 30px 10px 80px;
+      & li {
+        line-height: 26px;
+        & .w {
           display: inline-block;
-          width: 3px;
-          height: 20px;
-          background: #555;
-          vertical-align: -4px;
-          margin-right: 10px;
+          width: 80px;
         }
-      }
-    }
-    & .el-tabs--border-card>.el-tabs__header .el-tabs__item:not(.is-disabled):hover {
-      color: #333;
-    }
-    .el-table th,
-    .el-table tr {
-      background: inherit;
-      border-bottom: 1px solid #bbb;
-      height: 60px;
-    }
-    .el-table--border {
-      border: 1px solid #bbb;
-    }
-    .el-table--border td,
-    .el-table--border th,
-    .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
-      border-right: 1px solid #bbb;
-      text-align: center;
-      color: #555;
-    }
-    .send-table {
-      .el-table__header-wrapper {
-        & table {
-          background: #cdecf5;
+        & em {
+          font-style: normal;
         }
-      }
-    }
-    .receive-table {
-      .el-table__header-wrapper {
-        & table {
-          background: #ceeace;
+        & em.red {
+          color: #de6b66;
+        }
+        & em.blue {
+          color: #5bbfde;
         }
       }
     }
   }
+  & .right {
+    flex: 5;
+    display: flex;
+    background: #fff;
+    border-radius: 4px;
+    & .title {
+      font-size: 18px;
+      display: inline-block;
+      height: 26px;
+      margin: 20px;
+      border-left: 3px solid #5bbfde;
+      padding: 0 10px;
+      vertical-align: top;
+    }
+    & .circle-item {
+      position: relative;
+      & .el-progress--circle {
+        & .el-progress-circle {
+          margin: 15px 30px;
+        }
+        & .el-progress__text {
+          font-size: 20px !important;
+          color: #333;
+        }
+      }
+      & .text {
+        position: absolute;
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        top: 60%;
+      }
+    }
+  }
+}
+
+.tabs {
+  &
+    .el-tabs--border-card
+    > .el-tabs__header
+    .el-tabs__item:not(.is-disabled):hover {
+    color: #333;
+  }
+  .el-table th,
+  .el-table tr {
+    background: inherit;
+    border-bottom: 1px solid #bbb;
+    height: 60px;
+  }
+  .el-table--border {
+    border: 1px solid #bbb;
+  }
+  .el-table--border td,
+  .el-table--border th,
+  .el-table__body-wrapper
+    .el-table--border.is-scrolling-left
+    ~ .el-table__fixed {
+    border-right: 1px solid #bbb;
+    text-align: center;
+    color: #555;
+  }
+  .send-table {
+    .el-table__header-wrapper {
+      & table {
+        background: #cdecf5;
+      }
+    }
+  }
+  .receive-table {
+    .el-table__header-wrapper {
+      & table {
+        background: #ceeace;
+      }
+    }
+  }
+}
 </style>

@@ -57,6 +57,19 @@ export const monitorDetail = (store, params) => {
     return request.get(`${api}/PDE/monitor/detail/monitor`, params)
 }
 
+
+export const todayExNumTar = (store, params) => {
+    return request.get(`${api}/PDE/track/report/todayExNumTar`, params)
+}
+
+export const pandectTable = (store, params) => {
+    return request.get(`${api}/PDE/track/report/pandectTable`, params)
+}
+
+export const pandectDetail = (store, params) => {
+    return request.get(`${api}/PDE/track/report/pandectDetail`, params)
+}
+
 //发送监控
 export const sendMonitor = (store, params) => {
     return request.get(`${api}/PDE/monitor/detail/send`, params)
@@ -75,14 +88,11 @@ export const todayExNumSrc = (store, params) => {
     return request.get(`${api}/PDE/track/report/todayExNumSrc`, params)
 }
 
-export const todayExNumTar = (store, params) => {
-  return request.get(`${api}/PDE/track/report/todayExNumTar`, params)
+export const timebscodeMenu = (store, params) => {
+  return request.get(`${api}/PDE/track/currentTime/bscodeMenu`, params)
 }
 
-export const pandectTable = (store, params) => {
-    return request.get(`${api}/PDE/track/report/pandectTable`, params)
+export const timedeptAd = (store, params) => {
+  return request.get(`${api}/PDE/track/currentTime/deptAd`, params)
 }
 
-export const pandectDetail = (store, params) => {
-    return request.get(`${api}/PDE/track/report/pandectDetail`, params)
-}

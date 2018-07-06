@@ -16,6 +16,7 @@ export default {
      this.$store.dispatch("checkUser", {}).then(res => {
       if(res.status ==0){
         this.username = res.data.username;
+        localStorage.username=res.data.username;
         localStorage.parentName=res.data.parentName;
         localStorage.parentNo=res.data.parentNo;
         localStorage.roleId=res.data.roleId;

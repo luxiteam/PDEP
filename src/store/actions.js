@@ -47,9 +47,14 @@ export const businessHeader = (store, params) => {
 
 
 /*部门/区划详情*/
-//发送监控
+//监控状态
 export const monitorStatus = (store, params) => {
     return request.get(`${api}/PDE/monitor/detail/status`, params)
+}
+
+//监控详情
+export const monitorDetail = (store, params) => {
+    return request.get(`${api}/PDE/monitor/detail/monitor`, params)
 }
 
 //发送监控
@@ -57,6 +62,10 @@ export const sendMonitor = (store, params) => {
     return request.get(`${api}/PDE/monitor/detail/send`, params)
 }
 
+//接收监控
+export const reciveMonitor = (store, params) => {
+    return request.get(`${api}/PDE/monitor/detail/recive`, params)
+}
 
 export const trackBscodeMenu = (store, params) => {
     return request.get(`${api}/PDE/track/report/bscodeMenu`, params)

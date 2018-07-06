@@ -367,11 +367,6 @@ export default {
 .date-all {
   position: relative;
   margin: 10px 10px 0 0;
-  -moz-user-select: none;
-  -o-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   z-index: 13;
   & span {

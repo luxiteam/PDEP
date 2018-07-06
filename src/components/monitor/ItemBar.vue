@@ -6,7 +6,7 @@
       </li>
     </ul>
     <ul class="bar-ul"  v-else>
-      <li  class="active" @click="selectOne">
+      <li id="present"  class="active" @click="selectOne">
         <span> {{bsname}} </span>
       </li>
     </ul>
@@ -20,11 +20,13 @@ export default {
     let path = this.$router.history.current.fullPath;
     this.routerPath = path;
     this.roleId = localStorage.roleId;
-    console.log(this.roleId);
     if (this.roleId == 5) {
       this.bsname = "市本级";
+      localStorage.monitorObj= this.bsname
+      console.log()
     } else if (this.roleId == 7) {
       this.bsname = "区本级";
+      localStorage.monitorObj= this.bsname
     }
   },
   props: ["barList", "getData", "goDetail"],

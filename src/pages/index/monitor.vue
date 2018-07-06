@@ -1,8 +1,20 @@
 <template>
     <div>
         <ul class="module-block">
-          <li v-for="(item,index) in moduleList" :key="index"  :id="item.module" v-show="false">
-              <nuxt-link :to="item.path" exact>{{item.name}}</nuxt-link>
+          <li  id="jktj" v-show="false">
+              <nuxt-link to="/monitor">监控统计</nuxt-link>
+          </li>
+          <li  id="ywyjk" v-show="false">
+              <nuxt-link to="/monitor/business">业务域监控</nuxt-link>
+          </li>
+          <li v-if="id==4"  id="bmxq" v-show="false">
+              <nuxt-link :to="path">部门详情</nuxt-link>
+          </li>
+          <li v-if="id==5"  id="qxxq" v-show="false">
+              <nuxt-link :to="path">区县详情</nuxt-link>
+          </li>
+           <li v-if="id==6" id="ywgsxq" v-show="false">
+              <nuxt-link :to="path">业务公司详情</nuxt-link>
           </li>
         </ul>
         <nuxt-child/>
@@ -12,8 +24,8 @@
 <script>
 export default {
   mounted() {
-    (this.moduleList)[2].path = "/monitor/detail/:" + localStorage.parentNo;
-    (this.moduleList)[3].path = (this.moduleList)[2].path;
+    this.id = localStorage.roleId;
+    this.path = "/monitor/detail/:" + localStorage.parentNo;
     this.$store
       .dispatch("displayPermissions", {
         parentModule: "jhjk"
@@ -28,29 +40,8 @@ export default {
 
   data() {
     return {
-      id: "1",
-      moduleList: [
-        {
-          module: "jktj",
-          name: "监控统计",
-          path: "/monitor"
-        },
-        {
-          module: "ywyjk",
-          name: "业务域监控",
-          path: "/monitor/business"
-        },
-        {
-          module: "qxxq",
-          name: "区县详情",
-          path: "/monitor/detail/:"
-        },
-        {
-          module: "bmxq",
-          name: "部门详情",
-          path: "/monitor/detail/:"
-        }
-      ]
+      id: "",
+      path:""
     };
   }
 };

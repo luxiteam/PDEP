@@ -28,8 +28,11 @@ export default {
     EchartsBlock
   },
   methods: {
-    goDetail(id){
-      this.$router.push({path:`/monitor/detail/:${id}`,exact:true});
+    goDetail(id) {
+      this.$router.push({ path: `/monitor/detail/:${id}` });
+      let monitorObj = $(`#${id}`).text();
+      console.log(monitorObj);
+      localStorage.monitorObj = monitorObj;
     }
   },
   data() {

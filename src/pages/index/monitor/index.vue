@@ -3,7 +3,7 @@
     <bread-crumb></bread-crumb>
     <item-bar :bar-list="barList" :go-detail="goDetail"></item-bar>
     <data-block :data-list="dataList"></data-block>
-    <echarts-block></echarts-block>
+    <echarts-block :module-block="moduleBlock"></echarts-block>
   </div>
 </template>
 
@@ -20,6 +20,8 @@ export default {
     this.$store.dispatch("monitorHeader", {}).then(res => {
       this.dataList = res.data;
     });
+  
+    
   },
   components: {
     BreadCrumb,
@@ -37,6 +39,7 @@ export default {
   },
   data() {
     return {
+      moduleBlock:{},
       dataList: [],
       barList: []
     };
@@ -90,6 +93,30 @@ export default {
         margin-right: 10px;
       }
     }
+  }
+   &
+    .el-tabs--border-card
+    > .el-tabs__header
+    .el-tabs__item:not(.is-disabled):hover {
+    color: #333;
+  }
+  .el-table th,
+  .el-table tr {
+    background: inherit;
+    border-bottom: 1px solid #bbb;
+    height: 60px;
+  }
+  .el-table--border {
+    border: 1px solid #bbb;
+  }
+  .el-table--border td,
+  .el-table--border th,
+  .el-table__body-wrapper
+    .el-table--border.is-scrolling-left
+    ~ .el-table__fixed {
+    border-right: 1px solid #bbb;
+    text-align: center;
+    color: #555;
   }
 }
 </style>

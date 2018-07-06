@@ -36,15 +36,15 @@
         <span class="title">前置机监控 ({{detailList.serverIP}})</span>
         <div class="circle-item">
           <el-progress type="circle" :width="100" :percentage="detailList.rate_disk" color="#5cb85c"></el-progress>
-          <p class="text"> 硬盘大小 </p>
+          <p class="describe"> 硬盘大小 </p>
         </div>
         <div class="circle-item">
           <el-progress type="circle" :width="100" :percentage="detailList.rate_memory" color="#f0ad4e"></el-progress>
-          <p class="text"> 内存 </p>
+          <p class="describe"> 内存 </p>
         </div>
         <div class="circle-item">
           <el-progress type="circle" :width="100" :percentage="detailList.rate_cpu" color="#d9544f"></el-progress>
-          <p class="text"> CPU </p>
+          <p class="describe"> CPU </p>
   
         </div>
       </div>
@@ -204,7 +204,7 @@ export default {
           color: #333;
         }
       }
-      & .text {
+      & .describe {
         position: absolute;
         font-size: 13px;
         width: 100%;

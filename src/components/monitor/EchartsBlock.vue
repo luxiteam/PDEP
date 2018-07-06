@@ -105,7 +105,6 @@
           </div>
         </div>
       </el-tab-pane>
-  
       <el-tab-pane label="重点关注节点" name="focus_node">
         <div class="chart-left">
           <!--业务交换量排名饼图统计-->
@@ -769,11 +768,16 @@ export default {
 </script>
 
 <style lang="postcss">
-.chart-left {
-  width: 500px;
-  float: left;
-  position: relative;
+.tabs{
+  & .el-tab-pane{
+    display: flex;
+    & .chart-left {
+      width: 500px;
+      position: relative;
+    }
+  }
 }
+
 
 .right-list {
   width: 650px;

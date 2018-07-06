@@ -14,7 +14,7 @@
         </div>
       </el-col>
     </el-row>
-    <tracking-report ref = 'cl'></tracking-report>
+    <tracking-report :is = '' ref = 'cl'></tracking-report>
   </div>
 </template>
 

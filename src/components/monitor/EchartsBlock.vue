@@ -768,21 +768,18 @@ export default {
 </script>
 
 <style lang="postcss">
-.tabs{
-  & .el-tab-pane{
+.tabs {
+  & .el-tab-pane {
     display: flex;
     & .chart-left {
-      width: 500px;
+      flex: 1;
+      position: relative;
+    }
+    & .right-list {
+      flex: 2;
       position: relative;
     }
   }
-}
-
-
-.right-list {
-  width: 650px;
-  float: left;
-  position: relative;
 }
 
 #user_num_month {
@@ -798,24 +795,21 @@ export default {
   border-radius: 50%;
 }
 
- 
-
 /*散点分布*/
 
 #nodeShow {
-   width: 400px;
+  width: 400px;
   height: 400px;
-  float: left;
   position: relative;
   & li {
-  box-sizing: border-box;
-  cursor: pointer;
-  position: absolute;
-  color: #fff;
-  & h6{
-    color:#fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    color: #fff;
+    & h6 {
+      color: #fff;
+    }
   }
-}
 }
 @-webkit-keyframes 'bounce' {
   from {
@@ -880,7 +874,6 @@ export default {
   animation: "bounce" 3s infinite;
 }
 
- 
 #nodeShow li:hover {
   z-index: 999;
 }
@@ -974,6 +967,7 @@ export default {
 }
 
 .month-select {
+  width: 600px;
   border: #bbb 1px solid;
   line-height: 28px;
   margin-left: 80px;
@@ -1032,7 +1026,7 @@ export default {
 }
 
 .chart-inner {
-  width: 650px;
+  width: 700px;
   height: 350px;
 }
 </style>

@@ -85,17 +85,10 @@
   import Page from "~/components/public/Page.vue";
   
   export default {
-    created() {},
     mounted() {
       let me = this;
       this.monitorObj = localStorage.parentName + " - " + localStorage.monitorObj;
       let router = this.$router.history.current.fullPath;
-      if(router.split(":")[0]=="/monitor/detail/"){
-        $(".module-block li:last").children("a").addClass("nuxt-link-exact-active");
-      }else{
-        $(".module-block li:last").children("a").removeClass("nuxt-link-exact-active");
-
-      }
       let code = router.split(":")[1];
       this.$store
         .dispatch("monitorStatus", {

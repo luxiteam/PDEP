@@ -383,7 +383,7 @@ export default {
 
     this.selectType('send')
 
-    this.getTableInner()  //第一次请求表格内的数据
+    this.getTableInner()  //第一次请求表格内的数据.
   },
   methods:{
 

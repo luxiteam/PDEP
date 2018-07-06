@@ -4,7 +4,8 @@
       <el-tab-pane label="交换日分布统计" name="tongji">
         <div class="chart-left">
           <!--圆盘开始-->
-          <div class="left_pie" id="user_num_month"></div>
+          <div class="left-pie" id="user_num_month"></div>
+  
           <div class="center-data">
             <span>12312</span>
           </div>
@@ -165,7 +166,20 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="异常监控" name="abnormal">
-  
+        <div class="abnormal-view">
+          <ul>
+            <li><span>11</span><b>流量异常</b></li>
+            <li><span>45</span><b>节点异常</b></li>
+            <li><span>23</span><b>网络异常</b></li>
+            <li><span>89</span><b>数据源异常</b></li>
+            <li><span>12</span><b>硬盘异常</b></li>
+            <li><span>32</span><b>数据异常</b></li>
+            <li><span>51</span><b>延迟交换异常</b></li>
+            <li><span>9</span><b>数据更新异常</b></li>
+            <li><span>1</span><b>任务预算异常</b></li>
+            <li><span>10</span><b>清理预警</b></li>
+          </ul>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -785,6 +799,7 @@ export default {
 #user_num_month {
   width: 400px;
   height: 400px;
+  margin: 0 auto;
   border-radius: 50%;
 }
 
@@ -811,6 +826,7 @@ export default {
     }
   }
 }
+
 @-webkit-keyframes 'bounce' {
   from {
   }
@@ -926,13 +942,15 @@ export default {
 /*散点分布*/
 
 .center-data {
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   background: rgba(255, 255, 255, 0.95);
   border: #40cbcc 5px solid;
   position: absolute;
-  left: 35%;
-  top: 35%;
+  left: 50%;
+  top: 50%;
+  margin-left: -43px;
+  margin-top: -43px;
   z-index: 99;
   border-radius: 50%;
   padding: 8px;
@@ -1028,5 +1046,40 @@ export default {
 .chart-inner {
   width: 700px;
   height: 350px;
+}
+.abnormal-view {
+  width: 100%;
+  margin: 0 10px;
+  font-size: 14px;
+  text-align: center;
+  background: #5bbfde;
+  padding: 8px 0;
+  color: #fff;
+  border-radius: 3px;
+  & ul {
+    & li {
+      display: inline-block;
+      width: 9%;
+      & span {
+        display: block;
+        font-size: 24px;
+        line-height: 20px;
+        height: 20px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      & b {
+        display: block;
+        height: 16px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 12px;
+      }
+    }
+  }
 }
 </style>

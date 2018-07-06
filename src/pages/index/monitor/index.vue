@@ -57,7 +57,7 @@ export default {
     & > .el-tabs__content {
       background: #fff;
       min-height: 450px;
-      padding: 30px 20px;
+      padding: 30px;
     }
     & > .el-tabs__header .el-tabs__item.is-active {
       border: 0;

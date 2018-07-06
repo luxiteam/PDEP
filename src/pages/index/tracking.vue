@@ -14,7 +14,6 @@
         </div>
       </el-col>
     </el-row>
-
     <el-row class = 'navigation'>
       <el-col :span = '24'>
         <el-breadcrumb separator="/">
@@ -38,26 +37,27 @@
 
     <el-row class = 'data-exhibition'>
       <el-col :span = '4'>
-        <el-select v-model="dayValue" class = 'data-type'>
+        <el-select v-model="dayValue" class = 'data-type' @change = 'selectType'>
           <el-option class = 'initial'
-            v-for="item in dayOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+                     v-for="item in dayOptions"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value"
+          >
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span = '16' class = 'step-container'>
+      <el-col :span = '20' class = 'step-container'>
         <div class = 'step-box'>
-          <p class = 'step-title'>滨江区前置</p>
+          <p class = 'step-title'>{{name1}}</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
-          <img src="~/assets/server-icon.png">
+            <img src="~/assets/server-icon.png">
           </div>
           <p>发送量: <a href="javascript:void(0)" ref = 'send'></a></p>
         </div>
         <div class = 'step-box'>
-          <p class = 'step-title'>中心前置</p>
+          <p class = 'step-title'>{{name2}}</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
             <img src="~/assets/server-icon.png">
@@ -65,7 +65,7 @@
           <p>接收量: <a href="javascript:void(0)" ref = 'rcv'></a></p>
         </div>
         <div class = 'step-box'>
-          <p class = 'step-title'>业务获取</p>
+          <p class = 'step-title'>{{name3}}</p>
           <div class = 'cut-line'></div>
           <div class = 'server-box'>
             <img src="~/assets/server-icon.png">
@@ -73,17 +73,15 @@
           <p>获取量: <a href="javascript:void(0)" ref = 'finished'></a></p>
         </div>
       </el-col>
-      <el-col :span = '4'>
-      </el-col>
     </el-row>
 
     <el-row class = 'track-table'>
 
-      <el-col :span = '12' v-if = "dayORmonth == 'day'">
+      <el-col :span = '24' v-if = "dayORmonth == 'day'">
         <div class="start-date">
-        <span class = 'date-name'>起始日期：</span>
-        <el-date-picker  v-model="startvalue" @change="startDate" value-format="yyyy-MM-dd" type="date" :picker-options="pickerBeginDateBefore" placeholder="请选择起始日期">
-        </el-date-picker>
+          <span class = 'date-name'>起始日期：</span>
+          <el-date-picker  v-model="startvalue" @change="startDate" value-format="yyyy-MM-dd" type="date" :picker-options="pickerBeginDateBefore" placeholder="请选择起始日期">
+          </el-date-picker>
         </div>
         <div class = 'end-date'>
           <span class = 'date-name'>结束日期：</span>
@@ -106,17 +104,15 @@
         </div>
         <el-button class = 'initial' @click = 'downloadExcel'>导出表格</el-button>
       </el-col>
-
-      <el-col :span = '12'></el-col>
     </el-row>
 
     <el-row class = 'track-table-content'>
       <el-col :span = '24'>
         <el-table class = 'track-table-inner'
-          :data="this.tableData"
-          border
-          stripe
-          style="width: 100%">
+                  :data="this.tableData"
+                  border
+                  stripe
+                  style="width: 100%">
           <el-table-column
             prop="exchangeDate"
             label=发送日期
@@ -180,7 +176,7 @@
             label="详情"
             align="center">
             <template slot-scope="scope">
-              <el-button class = 'check-btn' @click = 'checkDetail'>查看</el-button>
+              <el-button class = 'check-btn' @click = 'checkDetail(scope.row.bscode,scope.row.exchangeDate)'>查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -207,17 +203,87 @@
       <i class = 'el-icon-loading'></i>
     </div>
 
-    <el-dialog
-      title="业务表详情"
-      :visible.sync="DialogVisibleVal"
-      :modal-append-to-body='false'
-      :append-to-body="true"
-      width="30%"
-      center>
+    <el-dialog title="业务表详情" :visible.sync="DialogVisibleVal" :modal-append-to-body='false' :append-to-body="true" width="80%" center>
+      <el-table class = 'track-table-inner' :data="this.DialogtableData" border stripe style="width: 100%">
+        <el-table-column
+          prop="exchangeDate"
+          label=发送日期
+          width="180"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="bsname"
+          label="业务"
+          width="180"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="planSend"
+          label="发送量"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="actualReceive"
+          label="交换量"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          prop="actualGet"
+          label="接收量"
+          align="center">
+        </el-table-column>
+        <el-table-column
+          label="待交换量"
+          align="center">
+          <template slot-scope="scope">
+            <span class = 'red' v-if = 'scope.row.waitForSent == 0'>{{scope.row.waitForSent}}</span>
+            <span class = 'blue' v-else-if='scope.row.waitForSent !== 0'>{{scope.row.waitForSent}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="待接收量"
+          align="center">
+          <template slot-scope="scope">
+            <span class = 'red' v-if = 'scope.row.waitForGet == 0'>{{scope.row.waitForGet}}</span>
+            <span class = 'blue' v-else-if='scope.row.waitForGet !== 0'>{{scope.row.waitForGet}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="交换状态"
+          align="center">
+          <template slot-scope = 'scope'>
+            <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForSent == 0'></i>
+            <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForSent !== 0'></i>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="接收状态"
+          align="center">
+          <template slot-scope = 'scope'>
+            <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForGet == 0'></i>
+            <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForGet !== 0'></i>
+          </template>
+        </el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="DialogVisibleVal = false">取 消</el-button>
-    <el-button type="primary" @click="DialogVisibleVal = false">确 定</el-button>
-  </span>
+        <el-row>
+          <el-col :span = '12' class = 'pagination-message'>
+            <p>总计<span>{{DialogtotalRow}}</span>条</p>
+          </el-col>
+          <el-col :span = '10' class = 'pagination-number'>
+            <el-pagination
+              layout="prev, pager, next"
+              @current-change='goDialogPage'
+              :page-size="5"
+              :total="DialogtotalRow"
+              :current-page="Dialogcurrentpage">
+            </el-pagination>
+          </el-col>
+          <el-col :span = '2' class = 'totalpageNumber'>
+            <p>共<span>{{DialogtotalpageNumber}}</span>页</p>
+          </el-col>
+        </el-row>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -226,27 +292,36 @@
 export default {
   data () {
     return {
-      businessList:[],     //三级菜单列表
-      businessActive:'',   //当前选中的业务编码
-      tableData:[],        //表格内容
-      totalpageNumber: 0,  //表格总页数
-      totalRow: 0,         //表格内容总条数
-      currentpage:1,       //表格分页当前页数
-      shadeSwitch: false,  //遮罩开关
-      dayisActive:true,    //日报属性class
-      monthisActive:false, //月报属性class
-      dayORmonth:'day',    //判断当前处于日报还是月报 (默认值:日报)
-      traceisActive:false, //实时追踪属性class
-      reportisActive:true, //追踪报告属性class
-      beginDateval:'',     //时间控件起始时间
-      endDateval:'',       //时间控件结束时间
-      dayVal:'当日发送',    //当前数据为当日发送还是接收 (默认值:当日发送)
-      startmonthvalue:'',
-      endmonthvalue: '',
-      startvalue: '',
-      endvalue: new Date(new Date()-24*60*60*1000),
-      DialogVisibleVal:false,
-      dayValue:'当日发送',
+      businessList: [], //三级菜单列表
+      businessActive: "", //当前选中的业务编码
+      tableData: [], //表格内容
+      DialogtableData: [], //弹窗表格内容
+      totalpageNumber: 0, //表格总页数
+      totalRow: 0, //表格内容总条数
+      currentpage: 1, //表格分页当前页数
+      shadeSwitch: false, //遮罩开关
+      dayisActive: true, //日报属性class
+      monthisActive: false, //月报属性class
+      dayORmonth: "day", //判断当前处于日报还是月报 (默认值:日报)
+      traceisActive: false, //实时追踪属性class
+      reportisActive: true, //追踪报告属性class
+      beginDateval: "", //时间控件起始时间
+      endDateval: "", //时间控件结束时间
+      dayVal: "当日发送", //当前数据为当日发送还是接收 (默认值:当日发送)
+      startmonthvalue: "",
+      endmonthvalue: "",
+      startvalue: "",
+      endvalue: new Date(new Date() - 24 * 60 * 60 * 1000),
+      DialogVisibleVal: false,
+      DialogtotalRow:0,
+      Dialogcurrentpage:1,
+      DialogtotalpageNumber:0,
+      RowBscode:'',
+      RowQueryDate:'',
+      dayValue: "当日发送",
+      name1:'',
+      name2:'',
+      name3:'',
       dayOptions: [{
         value: 'send',
         label: '当日发送'
@@ -306,7 +381,7 @@ export default {
       }
     })  //请求三级菜单的数据
 
-    this.gettodayExNumSrc ()
+    this.selectType('send')
 
     this.getTableInner()  //第一次请求表格内的数据
   },
@@ -368,6 +443,16 @@ export default {
         elementA.click()
     },       // 下载Excel文件
 
+    gettodayExNumTar() {
+      this.$store.dispatch("todayExNumTar", {}).then(res => {
+        if (res) {
+          this.$refs.send.innerHTML = res.data.send;
+          this.$refs.rcv.innerHTML = res.data.rcv;
+          this.$refs.finished.innerHTML = res.data.finished;
+        }
+      }); //请求(发送,接收,获取)三个量
+    }, //获取数据展示窗口三个量
+
     cutreporType (typeID) {
       if (typeID == 1) {         //切换到日报
         this.monthisActive = false
@@ -406,11 +491,10 @@ export default {
         this.updatePath('实时追踪',2)
       }
     },    //切换二级菜单
-
-    checkDetail () {
-      console.log("a");
-      this.DialogVisibleVal = true
+    goDialogPage (pageNumber) {
+      this.checkDetail(this.RowBscode,this.RowQueryDate,pageNumber)
     },
+
 
     businessMenu (el) {
       let element = $(el.target)
@@ -418,191 +502,254 @@ export default {
       element.addClass('active')
       element.parent().siblings().find('a').removeClass('active')
       this.getTableInner(null,this.beginDateval,this.endDateval,this.dayORmonth=='day'?0:1,this.businessActive)
+    },
+    selectType (val) {
+      let typeid = localStorage.roleid
+      let username = localStorage.username
+console.log("a");
+      if (typeid == '2' || typeid == '3' || typeid == '6') {
+
+        if (val  == 'send') {
+          this.resetName("部门/地方前置", "省中心前置", "省中心业务系统")
+          this.gettodayExNumSrc()
+        }else {
+          this.resetName("省中心前置", "部门/地方前置", "部门/地方业务系统")
+          this.gettodayExNumTar()
+        }
+
+      }else if (typeid == '4' || typeid == '5') {
+
+        if (val  == 'send') {
+          this.resetName(`${username}前置`, "省中心前置", "省中心业务系统")
+          this.gettodayExNumSrc()
+        }else {
+          this.resetName("省中心前置",  `${username}前置`, `${username}业务系统`)
+          this.gettodayExNumTar()
+        }
+      }
+    },
+    checkDetail(bsCode,queryDate,pageNumber) {
+      this.DialogtableData = []
+      this.$store.dispatch("pandectDetail", {bscode:bsCode,querydate:queryDate,isMonth:this.dayORmonth == 'day'?0:1,pageNumber:pageNumber?pageNumber:1}).then(res => {
+        this.RowBscode = bsCode
+        this.RowQueryDate = queryDate
+        this.DialogtableData = res.data.list
+        this.DialogtotalRow = res.data.totalRow;
+        this.DialogtotalpageNumber = res.data.totalPage;
+        this.Dialogcurrentpage = res.data.pageNumber
+      })
+      this.DialogVisibleVal = true;
+    },
+
+    resetName (name1, name2, name3) {
+      this.name1 = name1
+      this.name2 = name2
+      this.name3 = name3
     }
 
   }
 }
 </script>
 <style lang="postcss">
-  .container{
+  .container {
     position: relative;
     min-height: 1200px;
     min-width: 1200px;
     background: #f5f5f5;
   }
-  .shadow-box{
+  .shadow-box {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    height:100%;
-    background: rgba(255,255,255,0.5);
-    & i{
-        position: absolute;
-        top: 45%;
-        left:50%;
-        font-size:30px;
-        color: #979797;
-      }
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+  & i {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      font-size: 30px;
+      color: #979797;
+    }
   }
-  .nav-bar{
+  .nav-bar {
     background: #ffffff;
   }
-  .nav-btn{
+  .nav-btn {
     margin: 20px;
   }
-  .nav-btn.active{
+  .nav-btn.active {
     background: #5bbfde;
     color: #ffffff;
   }
-  .nav-btn-list{
+  .nav-btn-list {
     margin: 20px 20px;
-   }
-  .report.active{
+  }
+  .report.active {
     color: #ffffff;
     background: #5bbfde;
   }
-  .navigation{
+  .navigation {
     margin: 15px;
   }
-  .business-box{
+  .business-box {
     position: relative;
     background: #ffffff;
-    margin:0 20px;
-    overflow:hidden;
+    margin: 0 20px;
+    overflow: hidden;
     height: 80px;
-    transtion:height .5s;
-    & ul{
-      position:absolute;
-      left:0;
-      top:0;
-        & li {
-            display: inline-block;
-            height:80px;
-            & a{
-                color: #000;
-                display: inline-block;
-                padding: 10px 0px;
-                margin:20px 30px;
-              }
-              & a.active{
-                  color: #5bbfde;
-                  border-bottom: 5px solid #5bbfde;
-                }
-            & a.dropdown{
-                position:absolute;
-                top: 0px;
-                right: 0px;
-              }
-              & a:hover {
-                  color: #5bbfde;
-                  border-bottom: 5px solid #5bbfde;
-                }
-          }
-      }
+    transtion: height 0.5s;
+  & ul {
+      position: absolute;
+      left: 0;
+      top: 0;
+  & li {
+      display: inline-block;
+      height: 80px;
+  & a {
+      color: #000;
+      display: inline-block;
+      padding: 10px 0px;
+      margin: 20px 30px;
+    }
+  & a.active {
+      color: #5bbfde;
+      border-bottom: 5px solid #5bbfde;
+    }
+  & a.dropdown {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+  & a:hover {
+      color: #5bbfde;
+      border-bottom: 5px solid #5bbfde;
+    }
   }
-  .business-box.active{
+  }
+  }
+  .business-box.active {
     height: 164px;
-    transition: height .5s;
+    transition: height 0.5s;
   }
-  .data-exhibition{
+  .data-exhibition {
     position: relative;
     background: #ffffff;
     margin: 20px;
-    height:280px;
-    & .data-type{
-        margin:20px 0 0 20px;
-        & .el-input__inner{
-            width: 120px;
-            background: #5bbfde;
-            color: #ffffff;
-    text-align:center;
-          };
-          & .el-input__suffix .el-input__suffix-inner i{
-              color: #ffffff;
-            }
-      }
-    .step-container{
-      & .step-box{
-          position: relative;
-          margin-top: 20px;
-          margin-bottom: 20px;
-          margin-left: 135px;
-          display: inline-block;
-          height: 245px;
-          width: 185px;
-          text-align: center;
-          box-shadow: 0 0 5px #6ffaff;
-        & .step-title{
-            margin-top: 15px;
-          }
-        & .cut-line{
-              margin:10px auto;
-              width:150px;
-              height: 1px;
-              background: #ececec;
-            }
-          & .server-box{
-              margin: 20px auto;
-              height: 100px;
-              width: 100px;
-              border:10px solid #5bbfde;
-              border-radius:50%;
-              img{
-                margin:21px 0px;
-              }
-            }
-  p{
-    & a{
-        color: #055486;
+    height: 280px;
+  & .data-type {
+      margin: 20px 0 0 20px;
+  & .el-input__inner {
+      width: 120px;
+      background: #5bbfde;
+      color: #ffffff;
+      text-align: center;
+    }
+  & .el-input__suffix .el-input__suffix-inner i {
+      color: #ffffff;
     }
   }
-        }
+  .step-container {
+  & .step-box {
+      position: relative;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 135px;
+      display: inline-block;
+      height: 245px;
+      width: 185px;
+      text-align: center;
+      box-shadow: 0 0 5px #6ffaff;
+  & .step-title {
+      margin-top: 15px;
+    }
+  & .cut-line {
+      margin: 10px auto;
+      width: 150px;
+      height: 1px;
+      background: #ececec;
+    }
+  & .server-box {
+      margin: 20px auto;
+      height: 100px;
+      width: 100px;
+      border: 10px solid #5bbfde;
+      border-radius: 50%;
+  img {
+    margin: 21px 0px;
+  }
+  }
+  p {
+  & a {
+      color: #055486;
     }
   }
-  .track-table{
+  }
+  }
+  }
+  .track-table {
     background: #ffffff;
     margin: 0px 20px;
-    .date-name{
-      color: #656565;
-    }
-    .start-date,.end-date{
-      margin: 10px 20px;
-      display: inline-block;
-    }
-    .initial{
-      color: #ffffff;
-      background: #5bbfde;
-    }
+  .date-name {
+    color: #656565;
   }
-  .track-table-content{
+  .start-date,
+  .end-date {
+    margin: 10px 20px;
+    display: inline-block;
+  }
+  .initial {
+    color: #ffffff;
+    background: #5bbfde;
+  }
+  }
+  .track-table-content {
     margin: 0 30px;
-    background:#ffffff;
-      .has-gutter{
-        background: #eeeeee;
-      }
-    .pagination-message{
-      p{
-        padding:20px;
-        color: #838383;
-        margin:auto 0px;
-      }
-    }
-    .pagination-number{
-      padding:20px;
-      text-align: right;
-    }
-    .totalpageNumber{
-      padding:25px;
-      color: #949494;
-    }
+    background: #ffffff;
+  .has-gutter {
+    background: #eeeeee;
   }
-  .check-btn{
+  .pagination-message {
+  p {
+    padding: 20px;
+    color: #838383;
+    margin: auto 0px;
+  }
+  }
+  .pagination-number {
+    padding: 20px;
+    text-align: right;
+  }
+  .totalpageNumber {
+    padding: 25px;
+    color: #949494;
+  }
+  }
+  .check-btn {
     color: #ffffff;
     background: #5bbfde;
   }
 
   /* ElementUI样式覆盖 */
+  .el-dialog__header{
+    text-align: left;
+    font-weight: 700;
+  span{
+    font-size: 20px;
+    color: #666666;
+  }
+  }
+  .pagination-message p{
+    text-align: left;
+    color: #9a9a9a;
+  }
+  .pagination-number .el-pagination {
+    text-align: right;
+  }
+  .totalpageNumber p{
+    line-height: 30px;
+    color: #838383;
+  }
   .el-date-table td.today span {
     color: #c7c7c7;
     font-weight: 700;
@@ -625,20 +772,21 @@ export default {
     color: #000;
     background-color: #eeeeee;
   }
-  .has-gutter tr th{
+  .has-gutter tr th {
     border: 1px solid #e6e5e5;
   }
   /* 自定义样式 */
-  .left{
+  .left {
     float: left;
   }
-  .right{
+  .right {
     float: right;
   }
-  .red{
+  .red {
     color: #d9544f;
   }
-  .blue{
-    color:#83dada;
+  .blue {
+    color: #83dada;
   }
 </style>
+

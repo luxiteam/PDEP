@@ -19,12 +19,16 @@ export const todayExNumSrc = (store, params) => {
   return request.get(`${api}/PDE/track/report/todayExNumSrc`,params)
 }
 
+export const todayExNumTar = (store, params) => {
+  return request.get(`${api}/PDE/track/report/todayExNumTar`,params)
+}
+
 export const pandectTable = (store, params) => {
   return request.get(`${api}/PDE/track/report/pandectTable`,params)
 }
 
-export const exportTable = (store, params) => {
-  return request.get(`${api}/PDE/track/report/exportTable`,params)
+export const pandectDetail = (store, params) => {
+  return request.get(`${api}/PDE/track/report/pandectDetail`,params)
 }
 
 

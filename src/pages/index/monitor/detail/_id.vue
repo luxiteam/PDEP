@@ -34,9 +34,9 @@
       </div>
       <div class="right">
         <span class="title">前置机监控（）</span>
-        <el-progress type="circle" :percentage="30" width="100" color="#5cb85c"></el-progress>
-        <el-progress type="circle" :percentage="50" width="100" color="#f0ad4e"></el-progress>
-        <el-progress type="circle" :percentage="70" width="100" color="#d9544f"></el-progress>
+        <el-progress type="circle" :percentage="30" color="#5cb85c"></el-progress>
+        <el-progress type="circle" :percentage="50" color="#f0ad4e"></el-progress>
+        <el-progress type="circle" :percentage="70" color="#d9544f"></el-progress>
       </div>
     </div>
     <div class="tabs">

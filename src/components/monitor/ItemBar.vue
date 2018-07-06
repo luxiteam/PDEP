@@ -1,12 +1,10 @@
 <template>
   <div :class="isState==false?'select-block':'select-block on'" v-if="roleId==5||roleId==7"   v-show="barList.length>0||routerPath =='/monitor'">
-    <ul class="bar-ul" v-if="barList&&barList.length>0">
+    <ul class="bar-ul">
       <li  v-for="(item,index) in barList" :ref="index" :id="item.bscode||item.deptNo" :key="index" :class="itemIndex == index ? 'active' : ''" @click="selectItem(index)">
         <span> {{item.deptDesc||item.bsname}} </span>
       </li>
-    </ul>
-    <ul class="bar-ul"  v-else>
-      <li id="present"  class="active" @click="selectOne">
+      <li v-if="barList.length==0" id="present"  class="active" @click="selectOne">
         <span> {{bsname}} </span>
       </li>
     </ul>

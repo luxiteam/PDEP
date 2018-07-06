@@ -46,7 +46,7 @@
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span = '16' class = 'step-container'>
+      <el-col :span = '20' class = 'step-container'>
         <div class = 'step-box'>
           <p class = 'step-title'>滨江区前置</p>
           <div class = 'cut-line'></div>
@@ -72,13 +72,11 @@
           <p>获取量: <a href="javascript:void(0)" ref = 'finished'></a></p>
         </div>
       </el-col>
-      <el-col :span = '4'>
-      </el-col>
     </el-row>
 
     <el-row class = 'track-table'>
 
-      <el-col :span = '12' v-if = "dayORmonth == 'day'">
+      <el-col :span = '24' v-if = "dayORmonth == 'day'">
         <div class="start-date">
         <span class = 'date-name'>起始日期：</span>
         <el-date-picker  v-model="startvalue" @change="startDate" value-format="yyyy-MM-dd" type="date" :picker-options="pickerBeginDateBefore" placeholder="请选择起始日期">
@@ -105,8 +103,6 @@
         </div>
         <el-button class = 'initial' @click = 'downloadExcel'>导出表格</el-button>
       </el-col>
-
-      <el-col :span = '12'></el-col>
     </el-row>
 
     <el-row class = 'track-table-content'>
@@ -301,7 +297,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("bscodeMenu", {}).then(res => {
+    this.$store.dispatch("trackBscodeMenu", {}).then(res => {
       if (res) {
         this.businessList = res.data;
       }

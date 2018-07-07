@@ -65,7 +65,7 @@ export default {
 <style lang="postcss">
   .container {
     position: relative;
-    min-height: 1200px;
+    height: 100%;
     min-width: 1200px;
     background: #f5f5f5;
   }

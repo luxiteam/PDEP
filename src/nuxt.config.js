@@ -22,7 +22,7 @@ module.exports = {
                 type: 'image/x-icon',
                 href: '/favicon.ico'
             },
-            { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_723532_qwwghdu112.css' }
+            { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_723532_ei1kp29hiy.css' }
         ],
 
         script: [

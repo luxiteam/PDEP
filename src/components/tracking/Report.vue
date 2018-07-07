@@ -124,32 +124,32 @@
             label="待交换量"
             align="center">
             <template slot-scope="scope">
-              <span class = 'red' v-if = 'scope.row.waitForSent == 0'>{{scope.row.waitForSent}}</span>
-              <span class = 'blue' v-else-if='scope.row.waitForSent !== 0'>{{scope.row.waitForSent}}</span>
+              <span class = 'blue' v-if = 'scope.row.waitForSent !== 0'>{{scope.row.waitForSent}}</span>
+              <span class = 'red' v-else-if='scope.row.waitForSent == 0'>{{scope.row.waitForSent}}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="待接收量"
             align="center">
             <template slot-scope="scope">
-              <span class = 'red' v-if = 'scope.row.waitForGet == 0'>{{scope.row.waitForGet}}</span>
-              <span class = 'blue' v-else-if='scope.row.waitForGet !== 0'>{{scope.row.waitForGet}}</span>
+              <span class = 'blue' v-if = 'scope.row.waitForGet !== 0'>{{scope.row.waitForGet}}</span>
+              <span class = 'red' v-else-if='scope.row.waitForGet == 0'>{{scope.row.waitForGet}}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="交换状态"
             align="center">
             <template slot-scope = 'scope'>
-              <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForSent == 0'></i>
-              <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForSent !== 0'></i>
+              <i class = 'iconfont icon-check blue' v-if = 'scope.row.waitForSent !== 0'></i>
+              <i class = 'iconfont icon-plaint red' v-else-if='scope.row.waitForSent == 0'></i>
             </template>
           </el-table-column>
           <el-table-column
             label="接收状态"
             align="center">
             <template slot-scope = 'scope'>
-              <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForGet == 0'></i>
-              <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForGet !== 0'></i>
+              <i class = 'iconfont icon-check blue' v-if = 'scope.row.waitForGet !== 0'></i>
+              <i class = 'iconfont icon-plaint red' v-else-if='scope.row.waitForGet == 0'></i>
             </template>
           </el-table-column>
           <el-table-column
@@ -216,32 +216,32 @@
           label="待交换量"
           align="center">
           <template slot-scope="scope">
-            <span class = 'red' v-if = 'scope.row.waitForSent == 0'>{{scope.row.waitForSent}}</span>
-            <span class = 'blue' v-else-if='scope.row.waitForSent !== 0'>{{scope.row.waitForSent}}</span>
+            <span class = 'blue' v-if = 'scope.row.waitForSent !== 0'>{{scope.row.waitForSent}}</span>
+            <span class = 'red' v-else-if='scope.row.waitForSent == 0'>{{scope.row.waitForSent}}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="待接收量"
           align="center">
           <template slot-scope="scope">
-            <span class = 'red' v-if = 'scope.row.waitForGet == 0'>{{scope.row.waitForGet}}</span>
-            <span class = 'blue' v-else-if='scope.row.waitForGet !== 0'>{{scope.row.waitForGet}}</span>
+            <span class = 'blue' v-if = 'scope.row.waitForGet !== 0'>{{scope.row.waitForGet}}</span>
+            <span class = 'red' v-else-if='scope.row.waitForGet == 0'>{{scope.row.waitForGet}}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="交换状态"
           align="center">
           <template slot-scope = 'scope'>
-            <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForSent == 0'></i>
-            <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForSent !== 0'></i>
+            <i class = 'iconfont icon-check blue' v-if = 'scope.row.waitForSent == 0'></i>
+            <i class = 'iconfont icon-plaint red' v-else-if='scope.row.waitForSent !== 0'></i>
           </template>
         </el-table-column>
         <el-table-column
           label="接收状态"
           align="center">
           <template slot-scope = 'scope'>
-            <i class = 'iconfont icon-check red' v-if = 'scope.row.waitForGet == 0'></i>
-            <i class = 'iconfont icon-plaint blue' v-else-if='scope.row.waitForGet !== 0'></i>
+            <i class = 'iconfont icon-check blue' v-if = 'scope.row.waitForGet == 0'></i>
+            <i class = 'iconfont icon-plaint red' v-else-if='scope.row.waitForGet !== 0'></i>
           </template>
         </el-table-column>
       </el-table>
@@ -474,6 +474,7 @@ export default {
       element.addClass('active')
       element.parent().siblings().find('a').removeClass('active')
       this.getTableInner(null,this.beginDateval,this.endDateval,this.dayORmonth=='day'?0:1,this.businessActive)
+
     },
     selectType (val) {
         console.log(111);
@@ -656,7 +657,7 @@ export default {
   }
   }
   .track-table-content {
-    margin: 0 30px;
+    margin: 0 20px;
     background: #ffffff;
   .has-gutter {
     background: #eeeeee;
@@ -683,6 +684,9 @@ export default {
   }
 
   /* ElementUI样式覆盖 */
+  .el-select .el-input__inner{
+    background: #979797;
+  }
   .el-dialog__header{
     text-align: left;
     font-weight: 700;

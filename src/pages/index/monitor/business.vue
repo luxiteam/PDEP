@@ -4,7 +4,6 @@
         <item-bar :bar-list="barList"></item-bar>
         <data-block :data-list="dataList"></data-block>
         <tab-block :tab-list="tabList"></tab-block>
-    
     </div>
 </template>
 

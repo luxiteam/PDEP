@@ -4,7 +4,7 @@
     <div class="monitoring-state">
       <div class="left">
         <ul>
-          <li><span class="w">监控对象：</span><span>{{monitorObj}}</span></li>
+          <li><span class="w">监控对象：</span><span>{{statusList.monitor}}</span></li>
           <li>
             <span class="w">网络状态：</span>
             <span v-if="statusList.net">
@@ -97,7 +97,6 @@ import Page from "~/components/public/Page.vue";
 export default {
   mounted() {
     let me = this;
-    this.monitorObj = localStorage.parentName + " - " + localStorage.monitorObj;
     let router = this.$router.history.current.fullPath;
     let code = router.split(":")[1];
     this.$store
@@ -155,7 +154,7 @@ export default {
   display: flex;
   margin-bottom: 20px;
   & .left {
-    flex: 2;
+    flex: 3;
     background: #fff;
     border-radius: 4px;
     margin-right: 25px;

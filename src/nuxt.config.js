@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 module.exports = {
     /*
      ** Headers of the page
@@ -18,24 +19,19 @@ module.exports = {
             }
         ],
         link: [{
-                rel: 'icon',
-                type: 'image/x-icon',
-                href: '/favicon.ico'
-            },
-            { rel: 'stylesheet', href: 'https://at.alicdn.com/t/font_723532_qwwghdu112.css' }
-        ],
+            rel: 'icon',
+            type: 'image/x-icon',
+            href: '/favicon.ico'
+        }],
 
-        script: [
-            { src: 'https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js' },
-            { src: 'https://cdn.bootcss.com/echarts/3.8.5/echarts.js' },
-        ],
     },
     /*
      ** Global CSS
      */
     css: [
         'element-ui/lib/theme-chalk/index.css',
-        '~/assets/css/common.css'
+        '~/assets/css/common.css',
+        '~/assets/css/iconfont.css'
     ],
     /*
      ** Add element-ui in our app, see plugins/element-ui.js file
@@ -53,7 +49,12 @@ module.exports = {
      ** Build configuration
      */
     build: {
-        vendor: ['element-ui'],
+        vendor: ['jquery', 'element-ui'],
+        plugins: [
+            new webpack.ProvidePlugin({
+                '$': 'jquery'
+            })
+        ],
         postcss: [
             require('postcss-import')(),
             require('postcss-url')(),

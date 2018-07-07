@@ -19,6 +19,11 @@ export const displayPermissions = (store, params) => {
     return request.get(`${api}/PDE/permission/displayPermissions`, params)
 }
 
+//用户权限
+export const permissions = (store, params) => {
+    return request.get(`${api}/PDE/permission/permissions`, params)
+}
+
 //退出
 export const logout = (store, params) => {
     return request.get(`${api}/PDE/logOut`, params)
@@ -33,6 +38,12 @@ export const deptMenu = (store, params) => {
 export const monitorHeader = (store, params) => {
     return request.get(`${api}/PDE/monitor/monitorsta/header`, params)
 }
+
+//交换日分布统计
+export const exDaySta = (store, params) => {
+    return request.get(`${api}/PDE/monitor/monitorsta/exDaySta`, params)
+}
+
 
 /*业务域监控*/
 //三级业务菜单
@@ -89,10 +100,9 @@ export const todayExNumSrc = (store, params) => {
 }
 
 export const timebscodeMenu = (store, params) => {
-  return request.get(`${api}/PDE/track/currentTime/bscodeMenu`, params)
+    return request.get(`${api}/PDE/track/currentTime/bscodeMenu`, params)
 }
 
 export const timedeptAd = (store, params) => {
-  return request.get(`${api}/PDE/track/currentTime/deptAd`, params)
+    return request.get(`${api}/PDE/track/currentTime/deptAd`, params)
 }
-

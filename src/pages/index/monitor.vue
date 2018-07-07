@@ -17,16 +17,14 @@
               <nuxt-link :to="path">业务公司详情</nuxt-link>
           </li>
         </ul>
-        <nuxt-child/>
+        <nuxt-child :module-block="moduleBlock"/>
     </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.id = localStorage.roleId;
-    this.path = "/monitor/detail/:" + localStorage.parentNo;
-    this.$store
+  created() {
+     this.$store
       .dispatch("displayPermissions", {
         parentModule: "jhjk"
       })
@@ -36,12 +34,19 @@ export default {
           document.querySelector(`#${id}`).style.display = "block";
         }
       });
+  
+  },
+  mounted() {
+    this.id = localStorage.roleId;
+    this.path = "/monitor/detail/:" + localStorage.parentNo;
+   
   },
 
   data() {
     return {
+      moduleBlock: [],
       id: "",
-      path:""
+      path: ""
     };
   }
 };

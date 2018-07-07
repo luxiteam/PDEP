@@ -11,7 +11,9 @@ import Header from "~/components/Header.vue";
 import Menu from "~/components/Menu.vue";
 import Main from "~/components/Main.vue";
 export default {
- 
+  created () {
+  
+  },
   mounted () {
      this.$store.dispatch("checkUser", {}).then(res => {
       if(res.status ==0){

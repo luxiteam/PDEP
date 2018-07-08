@@ -54,9 +54,9 @@ export default {
         let code = localStorage.parentNo;
         this.goDetail(code);
     },
-    toggle: function() {
+    toggle() {
       this.isState = !this.isState;
-    },
+    }
     
   }
 };

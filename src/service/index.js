@@ -1,5 +1,4 @@
 import $ from 'jquery'
-
 export default {
     post(url, data) {
         console.log('post request url', url)

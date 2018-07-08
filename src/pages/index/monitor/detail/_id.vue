@@ -179,7 +179,7 @@ export default {
     }
   }
   & .right {
-    flex: 5;
+    flex: 6;
     display: flex;
     background: #fff;
     border-radius: 4px;

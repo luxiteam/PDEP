@@ -39,7 +39,7 @@ export default {
         basepassword = Base64.encode(basepassword, "base64");
       }
       $.ajax({
-        url: "http://59.202.28.203/PDE/login",
+        url: "http://192.168.137.1/PDE/login",
         data: { account: user, password: basepassword },
         type: "get",
         crossDomain: true,

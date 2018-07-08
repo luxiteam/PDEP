@@ -4,13 +4,13 @@
     <item-bar :bar-list="barList" :go-detail="goDetail"></item-bar>
     <data-block :data-list="dataList"></data-block>
     <div class="tabs">
-      <el-tabs type="border-card" v-model="activeName"> 
+      <el-tabs type="border-card" v-model="activeName">
         <el-tab-pane v-for="(item,index) in moduleBlock" :key="index" :label="item.moduleDesc" :name="item.moduleName" v-if="item.flag==1">
           <day-distribution v-if="item.moduleName=='jktj_rfb'"></day-distribution>
           <anomaly-monitoring v-if="item.moduleName=='jktj_ycjk'"></anomaly-monitoring>
-          <business-exchange  v-if="item.moduleName=='jktj_ywjhl'"></business-exchange>
-          <depart-exchange  v-if="item.moduleName=='jktj_bmjhl'"></depart-exchange>
-          <focus-nodes  v-if="item.moduleName=='jktj_zdgzjd'"></focus-nodes>
+          <business-exchange v-if="item.moduleName=='jktj_ywjhl'"></business-exchange>
+          <depart-exchange v-if="item.moduleName=='jktj_bmjhl'"></depart-exchange>
+          <focus-nodes v-if="item.moduleName=='jktj_zdgzjd'"></focus-nodes>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -35,7 +35,6 @@ export default {
       .then(res => {
         console.log(res.data);
         this.moduleBlock = res.data;
-      
       });
   },
   mounted() {
@@ -68,7 +67,7 @@ export default {
   },
   data() {
     return {
-      activeName:"jktj_rfb",
+      activeName: "jktj_rfb",
       moduleBlock: [],
       echartsBlock: [],
       dataList: [],
@@ -153,6 +152,7 @@ export default {
     & .chart-left {
       flex: 1;
       position: relative;
+      margin: 0 60px;
     }
     & .right-list {
       flex: 2;
@@ -337,44 +337,47 @@ export default {
   margin: 10px 10px 0 0;
   user-select: none;
   z-index: 13;
-  & span {
-    display: block;
-    width: 80px;
-    line-height: 30px;
-    font-size: 14px;
-    color: #333;
-    float: left;
-    text-align: center;
-    cursor: pointer;
+  display: flex;
+  & .year-select {
+    width: 70px;
+    margin-left: 10px;
+    & .el-input__inner {
+      border: none;
+    }
+    & .el-select__caret {
+      display: none;
+    }
+    & .el-input--suffix {
+      & .el-input__inner {
+        padding-right: 0;
+      }
+    }
   }
-}
-
-.month-select {
-  width: 600px;
-  border: #bbb 1px solid;
-  line-height: 28px;
-  margin-left: 80px;
-  border-radius: 3px;
-  text-align: center;
-  background: #fff;
-  position: relative;
-  & ul {
-    margin: 0 25px;
-    height: 30px;
-    padding-top: 5px;
-    & li {
-      display: block;
-      width: 40px;
-      font-size: 12px;
-      color: #333;
-      border-radius: 8px;
-      line-height: 18px;
-      height: 20px;
-      float: left;
-      cursor: pointer;
-      border: #fff 1px solid;
-      &:hover {
-        background: #e5e5e5;
+  .month-select {
+    width: 600px;
+    border: #bbb 1px solid;
+    line-height: 28px;
+    border-radius: 3px;
+    text-align: center;
+    background: #fff;
+    position: relative;
+    & ul {
+      padding: 6px 30px;
+      overflow: hidden;
+      & li {
+        display: block;
+        width: 43px;
+        font-size: 13px;
+        color: #333;
+        border-radius: 8px;
+        line-height: 18px;
+        height: 20px;
+        float: left;
+        cursor: pointer;
+        border: #fff 1px solid;
+        &:hover {
+          background: #e5e5e5;
+        }
       }
       & li.cur {
         display: inline-block;
@@ -382,29 +385,29 @@ export default {
         color: #fff;
       }
     }
-  }
-  & b {
-    display: inline-block;
-    cursor: pointer;
-    width: 8px;
-    height: 8px;
-    border-left: #888 2px solid;
-    border-top: #888 2px solid;
-    position: absolute;
-  }
-  & .disabled {
-    border-left: #ddd 2px solid;
-    border-top: #ddd 2px solid;
-  }
-  & b.left-arrow {
-    left: 10px;
-    top: 11px;
-    transform: rotate(-45deg);
-  }
-  & b.right-arrow {
-    right: 10px;
-    top: 11px;
-    transform: rotate(135deg);
+    & b {
+      display: inline-block;
+      cursor: pointer;
+      width: 8px;
+      height: 8px;
+      border-left: #888 2px solid;
+      border-top: #888 2px solid;
+      position: absolute;
+    }
+    & .disabled {
+      border-left: #ddd 2px solid;
+      border-top: #ddd 2px solid;
+    }
+    & b.left-arrow {
+      left: 10px;
+      top: 11px;
+      transform: rotate(-45deg);
+    }
+    & b.right-arrow {
+      right: 10px;
+      top: 11px;
+      transform: rotate(135deg);
+    }
   }
 }
 

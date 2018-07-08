@@ -1,7 +1,8 @@
 import request from '~/service'
 
-// const api = "http://10.18.58.246"
-const api = "http://59.202.28.203"
+const api = "http://192.168.137.1"
+
+// const api = "http://59.202.28.203"
 
 /*监控统计*/
 //登陆

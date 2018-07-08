@@ -4,7 +4,7 @@
     <item-bar :bar-list="barList" :get-data="getData"></item-bar>
     <data-block :data-list="dataList"></data-block>
     <div class="tabs">
-      <el-tabs type="border-card">
+      <el-tabs type="border-card" v-model="activeName">
         <el-tab-pane v-for="(item,index) in moduleBlock" :key="index" :label="item.moduleDesc" :name="item.moduleName" v-if="item.flag==1">
           <div v-if="item.moduleName=='jktj_rfb'">
            <day-distribution></day-distribution>
@@ -59,6 +59,7 @@
     },
     data() {
       return {
+        activeName:"jktj_rfb",
         moduleBlock: [],
         barList: [],
         dataList: []

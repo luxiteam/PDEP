@@ -1,74 +1,164 @@
 <template>
-    <div class="graphical">
-        <div class="chart-left">
-            <!--圆盘开始-->
-    
-            <div class="left-pie" id="user_num_month"></div>
-    
-            <div class="center-data">
-                <span>12312</span>
-            </div>
-        </div>
-        <!--圆盘结束-->
-        <div class="right-list">
-            <div class="date-all">
-                <div class="month-select">
-                    <b class="left-arrow"></b>
-                    <ul>
-                        <li>1月</li>
-                        <li>2月</li>
-                        <li>3月</li>
-                        <li>4月</li>
-                        <li class="cur">5月</li>
-                        <li>6月</li>
-                        <li>7月</li>
-                        <li>8月</li>
-                        <li>9月</li>
-                        <li>10月</li>
-                        <li>11月</li>
-                        <li>12月</li>
-                    </ul>
-                    <b class="right-arrow disabled"></b>
-                </div>
-            </div>
-            <div class="sort-chart">
-                <div class="chart-inner" id="list-sort"></div>
-            </div>
-        </div>
+  <div class="graphical">
+    <div class="chart-left">
+      <!--圆盘开始-->
+  
+      <div class="left-pie" id="user_num_month"></div>
+  
+      <div class="center-data">
+        <span>12312</span>
+      </div>
     </div>
+    <!--圆盘结束-->
+    <div class="right-list">
+  
+      <div class="date-all">
+        <el-select v-model="yearIndex" class="year-select">
+          <el-option v-for="item in yearList" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+        <div class="month-select">
+          <b :class="monthIndex==0?'left-arrow disabled':'left-arrow'" @click="prevMonth"></b>
+          <ul>
+            <li v-for="(item,index) in monthList" :key="index" :class="monthIndex==index?'cur':''" @click="selectMonth(index)">{{item}}</li>
+          </ul>
+          <b :class="monthIndex==11?'right-arrow disabled':'right-arrow'" @click="nextMonth"></b>
+        </div>
+      </div>
+      <div class="sort-chart">
+        <div class="chart-inner" id="list-sort"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import echarts from 'echarts';
+import echarts from "echarts";
 export default {
-  mounted() {
-    this.user_num_month();
-    this.list_sort(
-      "list-sort",
-      "#bbb",
-      "#8cd2e8",
-      [
-        "5月3日",
-        "5月10日",
-        "5月1日",
-        "5月9日",
-        "5月2日",
-        "5月4日",
-        "5月5日",
-        "5月6日",
-        "5月12日",
-        "5月8日"
+  data() {
+    return {
+      monthList: [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
       ],
-      [230, 299, 321, 430, 520, 760, 968, 1029, 1167, 1399]
-    );
+      yearList: [
+        {
+          value: "1",
+          label: "2018"
+        },
+        {
+          value: "2",
+          label: "2017"
+        },
+        {
+          value: "3",
+          label: "2016"
+        },
+        {
+          value: "4",
+          label: "2015"
+        },
+        {
+          value: "5",
+          label: "2014"
+        },
+        {
+          value: "6",
+          label: "2013"
+        },
+        {
+          value: "7",
+          label: "2012"
+        },
+        {
+          value: "8",
+          label: "2011"
+        }
+      ],
+      monthIndex: 0,
+      isState: false,
+      yearIndex: ""
+    };
   },
+  created() {
+    this.yearIndex = new Date().getUTCFullYear();
+    this.monthIndex = new Date().getUTCMonth();
+    let month = new Date().getUTCMonth() + 1;
+    month = month < 10 ? "0" + month : month;
+    let date = this.yearIndex + "-" + month;
+    this.loderData(date);
+  },
+  mounted() {},
   methods: {
-    user_num_month() {
+    loderData(date) {
+      console.log(date)
+      this.$store.dispatch("exDaySta", { date: date }).then(res => {
+        console.log(res.data);
+        let pie = res.data.pie;
+        let bar = res.data.bar;
+        let pieDate = [],
+          pieAmount = [],
+          barDate = [],
+          barAmount = [];
+        for (let i = 0; i < pie.length; i++) {
+          pieDate.push(pie[i].date);
+          pieAmount.push(pie[i].exAmount);
+        }
+        for (let i = 0; i < bar.length; i++) {
+          bar[i].date = this.monthIndex + 1 + "月" + bar[i].date + "日";
+          barDate.push(bar[i].date);
+          barAmount.push(bar[i].exAmount);
+        }
+        this.user_num_month(pieDate, pieAmount);
+        this.list_sort("list-sort", "#bbb", "#8cd2e8", barDate, barAmount);
+      });
+    },
+    toggle() {
+      this.isState = !this.isState;
+    },
+    prevMonth() {
+      if (this.monthIndex > 0) {
+        this.monthIndex--;
+        let month = this.monthIndex + 1;
+        month = month < 10 ? "0" + month : month;
+        let date = this.yearIndex + "-" + month;
+        this.loderData(date);
+      }
+    },
+    nextMonth() {
+      if (this.monthIndex < 11) {
+        this.monthIndex++;
+        let month = this.monthIndex + 1;
+        month = month < 10 ? "0" + month : month;
+        let date = this.yearIndex + "-" + month;
+        this.loderData(date);
+      }
+    },
+    selectMonth(index) {
+      this.monthIndex = index;
+      let month = this.monthIndex + 1;
+      month = month < 10 ? "0" + month : month;
+      let date = this.yearIndex + "-" + month;
+      this.loderData(date);
+    },
+    user_num_month(date, amount) {
+      let self = this;
       var myChart5 = this.get_myChart("user_num_month");
       //高亮日期
-      var cur_month = "1";
+
+      var cur_month = new Date().getUTCDate();
       var cur_val = 0;
-      var option = {
+      let option = {
         backgroundColor: "#5bbfde",
         tooltip: {
           show: true,
@@ -78,39 +168,7 @@ export default {
         },
         angleAxis: {
           type: "category",
-          data: [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"
-          ],
+          data: date,
           axisLine: {
             show: true,
             lineStyle: {
@@ -148,20 +206,7 @@ export default {
                 color: "#9861e7"
               }
             },
-            data: [
-              8020,
-              7102,
-              9310,
-              4194,
-              6013,
-              5025,
-              3911,
-              3819,
-              7310,
-              9001,
-              10282,
-              9021
-            ],
+            data: amount,
             coordinateSystem: "polar"
           }
         ]

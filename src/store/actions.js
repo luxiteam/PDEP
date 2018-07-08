@@ -113,3 +113,11 @@ export const bscodeTable = (store, params) => {
 export const columnDetails = (store, params) => {
     return request.get(`${api}/PDE/track/currentTime/columnDetails`, params)
 }
+
+export const tablePROJID = (store, params) => {
+    return request.get(`${api}/PDE/track/currentTime/tablePROJID`, params)
+}
+
+export const selectResult = (store, params) => {
+    return request.get(`${api}/PDE/track/currentTime/selectResult`, params)
+}
